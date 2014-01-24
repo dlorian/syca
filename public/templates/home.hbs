@@ -1,0 +1,123 @@
+<h1>Home</h1>
+<div class="row">
+  <div class="col-6 col-sm-6 col-lg-6">
+  	<h4>Letzten Touren:</h4>
+  	<table class="table table-hover">
+  		<thead>
+  			<tr>
+	          	<th>#</th>  
+	            <th>Datum</th>  
+	            <th>Kilometer</th>  
+	            <th>Gesamtzeit</th>  
+          	</tr>  
+        </thead>  
+        <tbody>
+        	{{#each tour in recentTours}}
+        	<tr>
+        		<td>#</td>
+	  			<td>{{tour.date}}</td>
+	  			<td>{{tour.totalKm}}</td>
+	  			<td>{{tour.totalTime}}</td>
+  			</tr>
+  			{{/each}}
+  		</tbody>
+  	</table>
+  	<h4>Beste Zeit bei 20km:</h4>
+  	<table class="table table-hover">
+  		<thead>
+  			<tr>
+	          	<th>#</th>  
+	            <th>Datum</th>  
+	            <th>Zeit</th>  
+          	</tr>  
+        </thead>  
+        <tbody>
+        	{{#each tour in topTime20}}
+        	<tr>
+        		<td>#</td>
+	  			<td>{{tour.date}}</td>
+	  			<td>{{tour.time}}</td>
+  			</tr>
+  			{{/each}}
+  		</tbody>
+  	</table>
+  	<h4>Beste Durchschnitte:</h4>
+  	<table class="table table-hover">
+  		<thead>
+  			<tr>
+	          	<th>#</th>  
+	            <th>Datum</th>  
+	            <th>Durchschnitt</th>  
+          	</tr>  
+        </thead>  
+        <tbody>
+        	{{#each tour in topAvgSpeed}}
+        	<tr>
+        		<td>#</td>
+	  			<td>{{tour.date}}</td>
+	  			<td>{{tour.speed}}</td>
+  			</tr>
+  			{{/each}}
+  		</tbody>
+  	</table>
+  </div> <!-- /.col-6-->
+  <div class="col-6 col-sm-6 col-lg-6">
+  	<h4>Meisten Gesamtkilometer:</h4>
+  	<table class="table table-hover">
+  		<thead>
+  			<tr>
+	          	<th>#</th>  
+	            <th>Datum</th>  
+	            <th>Kilometer</th>  
+          	</tr>  
+        </thead>  
+        <tbody>
+        	{{#each tour in topTotalKm}}
+        	<tr>
+        		<td>#</td>
+	  			<td>{{tour.date}}</td>
+	  			<td>{{tour.totalKm}}</td>
+  			</tr>
+  			{{/each}}
+  		</tbody>
+  	</table>
+  	<h4>Beste Zeit bei 30km::</h4>
+  	<table class="table table-hover">
+  		<thead>
+  			<tr>
+	          	<th>#</th>  
+	            <th>Datum</th>  
+	            <th>Zeit</th>  
+          	</tr>  
+        </thead>  
+        <tbody>
+        	{{#each tour in topTime30}}
+        	<tr>
+        		<td>#</td>
+	  			<td>{{tour.date}}</td>
+	  			<td>{{tour.time}}</td>
+  			</tr>
+  			{{/each}}
+  		</tbody>
+  	</table>
+  	<h4>Beste Höchstgeschwindigkeit:</h4>
+  	<table class="table table-hover">
+  		<thead>
+  			<tr>
+	          	<th>#</th>  
+	            <th>Datum</th>  
+	            <th>Kilometer</th>  
+          	</tr>  
+        </thead>  
+        <tbody>
+        	{{#each tour in topTopSpeed}}
+        	<tr>
+        		<td>#</td>
+	  			<td>{{tour.date}}</td>
+	  			<td>{{tour.speed}}</td>
+  			</tr>
+  			{{/each}}
+  		</tbody>
+  	</table>
+  </div><!-- /.col-6-->
+</div><!-- /.row-->

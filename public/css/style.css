@@ -1,0 +1,117 @@
+/* Put your CSS here */
+html, body {
+  height: 100%;
+}
+
+div.clear {
+  clear: both;
+}
+
+#messageView {
+  margin-bottom: 10px;
+}
+#messageView div {
+  left: 3em;
+  right: 3em;
+  height: 30px;
+  color: white;
+  border-radius: 5px;
+}
+#messageView div.messageWrapper {
+  position: relative;
+  left: 0px;
+}
+#messageView button {
+  background: transparent;
+  border: none;
+  height: 20px;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}
+#messageView p {
+  float: left;
+}
+#messageView .success {
+  padding: 5px;
+  background-color: #47a447;
+}
+#messageView .error {
+  padding: 5px;
+  background-color: #d2322d;
+}
+#messageView .errorMessage {
+  font-style: italic;
+  font-weight: bold;
+}
+
+#weatherContainer {
+  height: 130px;
+  width: 100%;
+}
+#weatherContainer .cityName {
+  font-weight: bold;
+}
+#weatherContainer .loader {
+  text-align: center;
+  padding: 15px;
+}
+#weatherContainer #weatherTitleContainer {
+  padding: 4px;
+  height: 30px;
+  position: relative;
+  left: 0px;
+}
+#weatherContainer #weatherTitleContainer p {
+  float: left;
+}
+#weatherContainer #weatherTitleContainer button {
+  background: transparent;
+  position: absolute;
+  border: none;
+  height: 20px;
+  top: 5px;
+}
+#weatherContainer #weatherTitleContainer #settingsBtn {
+  right: 5px;
+}
+#weatherContainer #weatherTitleContainer #refreshBtn {
+  right: 30px;
+}
+#weatherContainer .weatherIconContainer {
+  text-align: center;
+}
+#weatherContainer .weatherIconContainer i {
+  font-size: 2.5em;
+}
+#weatherContainer .weatherDataContainer ul {
+  list-style: none;
+  padding: 0px;
+}
+#weatherContainer .weatherDataContainer ul li:first-child {
+  font-weight: bold;
+}
+#weatherContainer .weatherDataContainer ul span {
+  margin-left: 5px;
+}
+
+#weatherSettingsModal #searchField {
+  margin: 5px;
+}
+#weatherSettingsModal .loader {
+  text-align: center;
+  padding: 15px;
+}
+#weatherSettingsModal p.settingCategory, #weatherSettingsModal p.currentCity {
+  font-weight: bold;
+  margin: 5px;
+}
+#weatherSettingsModal .list {
+  margin: 5px;
+}
+#weatherSettingsModal .group {
+  margin-bottom: 5px;
+  border-radius: 2px;
+  background-color: #f7f7f9;
+  border: 1px solid #e1e1e8;
+}

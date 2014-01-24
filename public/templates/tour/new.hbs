@@ -1,0 +1,75 @@
+<div id="formContainer">
+	<div id="msgContainer">{{view EmberApp.MessageView}}</div>
+	<form {{action 'add' on='submit'}}>
+		<div class="row">
+			<div class="col-xs-6">
+				<div class="form-group">
+					 <label for="totalKm">Strecke gesamt [km]:</label>
+					{{view Ember.TextField valueBinding="totalKm" id="totalKm" class="form-control"}}
+				</div>
+				<div class="form-group">
+					<label for="avgSpeed"> Avg. Geschwindigket</label>
+					{{view Ember.TextField valueBinding="avgSpeed" id="avgSpeed" class="form-control"}}
+				</div>
+				<div class="form-group">
+					<label for="topSpeed"> Top. Geschwindigket</label>
+					{{view Ember.TextField valueBinding="topSpeed" id="topSpeed" class="form-control"}}
+				</div>
+			</div><!-- /.col-xs-6 -->
+			<div class="col-xs-6">
+				<div class="form-group">
+					<label for="totalTime">Zeit gesamt:</label>
+					{{view Ember.TextField valueBinding="totalTime" id="totalTime" class="form-control"}}
+				</div>
+				<div class="form-group">
+					<label for="time20">Zeit bei 20km:</label>
+					{{view Ember.TextField valueBinding="time20" id="time20" class="form-control"}}
+				</div>
+				<div class="form-group">
+					<label for="time30">Zeit bei 30km:</label>
+					{{view Ember.TextField valueBinding="time30" id="time30" class="form-control"}}
+				</div>
+			</div><!-- /.col-xs-6 -->
+		</div><!-- /.row -->
+		<div class="row">
+		 	<div class="col-xs-6">
+				<div class="form-group">
+				    <label for="condition">Bedingungen:</label>
+				    {{view Ember.Select  contentBinding="EmberApp.weatherCondition" id="condition" class="form-control"}}
+				</div>
+				<div class="form-group">
+				    <label for="temperature">Temperatur:</label>
+				    {{view Ember.TextField valueBinding="temperature" id="temperature" class="form-control"}}
+				</div>
+				<div id="weatherContainer">{{view EmberApp.WeatherView}}</div>
+			</div><!-- /.col-xs-6 -->
+			<div class="col-xs-6">
+				<div class="form-group">
+				    <label for="windDirection">Windrichtung:</label>
+				    {{view Ember.Select contentBinding="EmberApp.windDirection" id="windDirection" class="form-control"}}
+				</div>
+				<div class="form-group">
+				    <label for="windSpeed">Windgeschwindigkeit:</label>
+				    {{view Ember.TextField valueBinding="windSpeed" id="windSpeed" class="form-control"}}
+				</div>
+				<div class="form-group">
+				    <label for="windStrength">Windstärke:</label>
+				    {{view Ember.TextField valueBinding="windStrength" id="windStrength" class="form-control"}}
+				</div>
+				<div class="form-group">
+				    <label for="windBlasts">Böen:</label>
+				    {{view Ember.TextField valueBinding="windBlasts" id="windBlasts" class="form-control"}}
+				</div>
+			</div><!-- /.col-xs-6 -->
+		</div><!-- /.row -->
+		<div class="row">
+			<div class="col-xs-12 col-md-12">
+				<div class="form-group">
+				    <label for="description">Beschreibung der Strecke</label>
+				    {{view Ember.TextArea valueBinding="description" id="description" class="form-control" placeholder="Wegpunkte..."}}
+				</div>
+			</div><!-- /.col-md-8-->
+		</div><!-- /.row -->
+		<div><button id="saveTourBtn" type="submit" class="btn btn-default">Tour speichern</button></div>
+	</form>
+</div>

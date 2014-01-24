@@ -1,0 +1,21 @@
+<div id="messageView" {{bind-attr class="visible::hidden"}}>
+    {{#if controller.visible}} 
+    <div class="messageWrapper">
+        {{#if controller.success}}
+        <div class="success">
+    	   <p>Eintrag wurde erfolgreich gespeichert.</p>
+    	   <button type="button" class="btn btn-default btn-xs" {{action 'hideMsgView'}}>
+    	       <span class="glyphicon glyphicon-remove"></span>
+    	    </button>
+        </div><!-- /.success -->
+        {{else}}
+        <div class="error">
+    	   <p>Eintrag konnte nicht gespeichert werden.<span class="errorMessage"> {{controller.errMsg}}</span></p>
+    	   <button type="button" class="btn btn-default btn-xs" {{action 'hideMsgView'}}>
+    	   	   <span class="glyphicon glyphicon-remove"></span>
+    	   </button>
+        </div><!-- /.error -->
+        {{/if}}
+    </div><!-- /.messageWrapper -->
+    {{/if}}
+</div><!-- /#messageview -->
