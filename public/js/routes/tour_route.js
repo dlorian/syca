@@ -1,36 +1,39 @@
 EmberApp.TourRoute = Ember.Route.extend({
-  // admittedly, this should be in IndexRoute and not in the 
-  // top level ApplicationRoute; we're in transition... :-)
-  model: function (param) {
-    console.log('TourRoute');
-    //console.log(param.id);
-  }
+	// currently do nothing
 });
 
 EmberApp.TourDetailsRoute = Ember.Route.extend({
-  // admittedly, this should be in IndexRoute and not in the 
-  // top level ApplicationRoute; we're in transition... :-)
-  model: function (param) {
-    console.log('TourDetailsRoute');
-    //console.log(param.id);
-  }
+
+    model: function (param) {
+	   return this.get('store').find('tour', param.tour_id);
+    },
+
+    setupController: function(controller, model) {
+        controller.set('model', model);
+    },
+
+    renderTemplate: function() {
+        this.render('tour/details', { into: 'application' });
+    }
 });
 
 EmberApp.TourNewRoute = Ember.Route.extend({
 
-  model: function () {
-    console.log('TourNewRoute');
-    // create a new empty record for type tour
-    return this.get("store").createRecord('tour');
-  },
+    model: function () {
+        // create a new empty record for type tour
+        return this.get("store").createRecord('tour');
+    },
 
-  setupController: function(controller, model) {
-    controller.set('model', model);
-  },
+    deactivate: function() {
+        // set the controller state to default
+        this.controllerFor('tour.new').routeDeactivated();
+    },
 
-  renderTemplate: function() {
-    this.render('tour/new', { into: 'application' });
-  }
+    setupController: function(controller, model) {
+        controller.set('model', model);
+    },
 
-  
+    renderTemplate: function() {
+        this.render('tour/new', { into: 'application' });
+    }
 });

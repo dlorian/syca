@@ -1,14 +1,45 @@
 EmberApp.TourController = Ember.ObjectController.extend({
-	// add: function() {
-	// 	console.log('Add new tour of tour controller');
-	// }
+	
+});
+
+EmberApp.TourDetailsController = Ember.ObjectController.extend({
+	isDisabled: true,
+
+	setDisabled: function(disabled) {
+		this.set('isDisabled', disabled);
+	},
+
+	actions: {
+		setEditable: function() {
+			this.setDisabled(false);
+		},
+
+		save: function() {
+			debugger
+			this.get('model').changedAttributes();
+			var desc = this.get('model').get('description');
+			this.get('model').save().then(function(){
+				console.log('save successful');
+			}, function(){
+				console.log('save failed');
+			});	
+		}
+	}
 });
 
 EmberApp.TourNewController = Ember.ObjectController.extend({
 	// View-Porperties
-	visible: false, 	// true to show message view
+	visible: false, // true to show message view
 	success: false, // true to show that save was successful
 	errMsg: null,	// errMsg to show if save was not successful
+
+	routeDeactivated: function() {
+		// when the routs get changed, the deactivate hook is triggered
+		// then set the state of the controller to default state
+		this.set('visible', false);
+		this.set('success', false);				
+		this.set('errMsg', 	null);
+	},
 
 	actions: {
 		add: function() {
@@ -16,10 +47,9 @@ EmberApp.TourNewController = Ember.ObjectController.extend({
 			var controller = this;
 
 			var showMsg = function(wasSuccessful, errMsg) {
-				console.log('Show message view');
 				controller.set('visible', true);
 				controller.set('success', wasSuccessful);
-				controller.set('errMsg', errMsg);
+				controller.set('errMsg',  errMsg);
 			}
 
 			var onSuccess = function(resp) {
@@ -43,16 +73,3 @@ EmberApp.TourNewController = Ember.ObjectController.extend({
 	}
 	
 });
-
-EmberApp.TourEditController = Ember.ObjectController.extend({
-	update: function() {
-		
-	}
-});
-
-EmberApp.TourDetailsController = Ember.ObjectController.extend({
-	update: function() {
-		
-	}
-});
-

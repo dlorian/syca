@@ -1,7 +1,7 @@
 EmberApp.ToursRoute = Ember.Route.extend({
 	model: function () {
-    	// find only tours which are already saved on the backend
-    	return this.store.find('tour', {'isNew': false});
+		var controller = this.controllerFor('tours');   
+    	return this.store.findQuery('tour', {'isNew': false, offset: controller.offset, limit: controller.limit});
 	},
 
 	setupController: function(controller, model) {

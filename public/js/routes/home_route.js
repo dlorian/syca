@@ -3,6 +3,5 @@ EmberApp.HomeRoute = Ember.Route.extend({
   // top level ApplicationRoute; we're in transition... :-)
   model: function () {
     console.log('HomeRoute');
-    EmberApp.Home.find();
   }
 });

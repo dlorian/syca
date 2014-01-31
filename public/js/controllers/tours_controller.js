@@ -1,5 +1,7 @@
 EmberApp.ToursController = Ember.ArrayController.extend({
 
+	offset: 0,
+	limit: 10,
 	first: true,
 
 	isFirst: function() {
@@ -10,10 +12,18 @@ EmberApp.ToursController = Ember.ArrayController.extend({
 		return false;
 	},
 
+	init: function() {
+		this._super();
+		$(document).ready(function() {
+				
+			$('#toursList a').click(function(){
+				debugger
+				console.log('click');
+			});			
+		});
+	},
+
 	getTour: function(tour) {
-		console.log('GetTour of ToursController');
-		console.log(tour);
-		tour.set('id', tour.get('_id'));
-		this.transitionToRoute('tour.details', tour );
+		this.transitionToRoute('tour.details', tour);
 	}
 });

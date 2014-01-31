@@ -1,4 +1,4 @@
-<div class="container">
+<div>
 	<div>
 		<form class="form-inline">
     		{{view Ember.Select  contentBinding="EmberApp.weatherCondition" id="year" class="input-small"}}
@@ -7,13 +7,14 @@
 		</form>
 	</div>
 
-	<h2>Touren2</h2>
-	<div class="list-group">
-	{{#each tour in model }}
-		{{#linkTo 'tour.details' this class="list-group-item"}}
-			<h4 class="list-group-item-heading"> {{tour.description}} : Name</h4>
-			<p class="list-group-item-text"> {{tour.id}} : ID</p>
-		{{/linkTo}}
-	{{/each}}
+	<div id="toursList" class="list-group syca-list-group">
+		{{#each tour in model }}
+			{{#linkTo 'tour.details' tour class="list-group-item"}}
+				<h4 class="list-group-item-heading"> {{tour.description}} : Name</h4>
+				<p class="list-group-item-text"> {{tour.id}} : ID</p>
+			{{/linkTo}}
+		{{else}}
+		<p>Keine Einträge vorhanden</p>
+		{{/each}}
 	</div> <!-- /.list-group -->
-</div> <!-- /.container -->
+</div>

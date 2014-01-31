@@ -12,18 +12,18 @@ var tourSchema = new mongoose.Schema({
   // Weather
   temperature: Number,
   condition: String,
-  wind_speed: Number,
-  wind_direction: String,
-  wind_strength: Number,
-  wind_blasts: Number,
+  windSpeed: Number,
+  windDirection: String,
+  windStrength: Number,
+  windBlasts: Number,
   // Track
-  total_km: Number,
-  top_speed: Number,
-  avg_speed: Number,
+  totalKm: Number,
+  topSpeed: Number,
+  avgSpeed: Number,
   // Times
-  time_20: Number,
-  time_30: Number,
-  total_time: Number
+  time20: Number,
+  time30: Number,
+  totalTime: Number
 });
 
 // Should be used as a Singleton
@@ -41,22 +41,36 @@ exports.getTourInstance = function() {
 
 exports.find = function(request, response) {
   console.log('in: --> Tour.js: find()');
-  // find all Tour models in the database
-  
-  Tour.find(function(err, tours) {
-    if (err) {
-      console.log('Error occured while querying database');
+  var offset = request.query.offset;
+  var limit = request.query.limit;
+
+  var sendResponse = function(err, tours) {
+    if(err) {
+        var errMsg = 'Tours: Error occured while querying database!'
+        response.statusCode = 500;
+        response.send(errMsg);
+        console.log(errMsg);
     }
-    console.log(tours);
-    // send found tours back to the client
-    response.jsonp({tours:tours});
-  });
-  console.log('out: <-- Tour.js: find()');
+    else {
+        response.jsonp({ tours: tours });
+    }
+    console.log('out: <-- Tour.js: find()'); 
+  }
+
+  if(offset && limit) {
+    console.log('Find tours with offset:' + offset + ' and limit to:' + limit);
+    Tour.find().skip(offset).limit(limit).exec(sendResponse);
+  }
+  else {
+    Tour.find().exec(sendResponse);
+  }  
 };
 
 exports.findById = function(request, response) {
-
-  Tour.findById(request.params.id, function(err, tour) {
+  console.log(request.params.id);
+  // Properties _id and id are not the same
+  // Due to this we have to find by prop id, which is used by the client
+  Tour.find({id: request.params.id}, function(err, tour) {
     if (err) {
       console.log('Enable to find document in database with Id: ' + request.params.id);
       console.log(err);
@@ -64,7 +78,7 @@ exports.findById = function(request, response) {
     }
     console.log('find successfull');
     console.log(tour);
-    response.send(tour);
+    response.jsonp({ tour: tour });
   });
 };
 

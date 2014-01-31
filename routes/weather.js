@@ -173,14 +173,12 @@ exports.getWeatherData = function(request, response) {
 }
 
 exports.getWeatherDataById = function(request, response) {
-	console.log('getWeatherDataById');
 	getWeather(request.query.id, function(weather){
 		response.send(weather);
 	});
 }
 
 exports.getCityByText = function(request, response) {
-	console.log('getCityByText');
 	getCityList(request.query.city, function(data){
 		response.send(data);
 	});
