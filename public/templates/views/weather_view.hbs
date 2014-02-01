@@ -66,7 +66,7 @@
 	      				{{#each city in controller.savedCities}}
 	      				<div class="input-group list">
 	      					<span class="input-group-addon">
-	        					<input type="radio" name="weatherCity" {{bind-attr value="city.id"}}>
+	        					<input type="radio" name="weatherCity" {{bind-attr value="city.id"}} {{bindAttr checked="city.selected"}}>
 	      					</span>
 	      					<input type="text" class="form-control" {{bind-attr value="city.name"}}>
 	      					<span class="input-group-btn">

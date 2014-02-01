@@ -37,12 +37,11 @@ var runExrepssServer = function() {
 	app.get('/api/tours/:id', tours.findById);
 	app.post('/api/tours', tours.add);
 	app.put('/api/tours/:id', tours.update);
-	app.delete('/api/tours/:id', tours.delete);
+	//app.delete('/api/tours/:id', tours.delete); not yet implemented
 
 	app.get('/homes', home.find);
 
-	app.get('/api/weather', weather.getWeatherData);
-	app.get('/api/weather:id', weather.getWeatherDataById);
+	app.get('/api/weather', weather.getWeatherDataById);
 	app.get('/api/weather/find?:city', weather.getCityByText);
 
 	app.listen(app.get('port'));

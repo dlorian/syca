@@ -44,6 +44,14 @@ EmberApp.WeatherController = Ember.ObjectController.extend({
 
 	isInitialized: false,	// Flag to mark modal window as initalized
 
+	selectedCity: function() {
+		var cityId = this.get('currentCity.id');
+		$.each(this.savedCities, function(index, city) {
+			city.selected = (city.id === cityId) ? true : false;
+		});
+		
+	}.observes('savedCities', 'currentCity'), 
+
 	init: function() {
 		var me = this;
 		var config = this.config;
@@ -116,6 +124,9 @@ EmberApp.WeatherController = Ember.ObjectController.extend({
 		}		
 	},
 
+	/**
+	 * Update the weather data for the city which is set to the currentCity property
+	 */
 	updateWeather: function() {
 		var controller = this;
 		var cityId = null;
@@ -151,18 +162,24 @@ EmberApp.WeatherController = Ember.ObjectController.extend({
 	},
 
 	selectCity: function(cityId) {
+		var me = this;
 		if($.isNumeric(cityId)) {
-			var id = parseInt(cityId);
-			var savedCities = this.get('savedCities');
-			var city = savedCities.findBy('id', id);
+			var city = me.get('savedCities').findBy('id', parseInt(cityId));
+
+			// save selected city
 			this.set('currentCity', city);
+
+			// Update the weather view when window is closed.
+			// Not updated immediately to minimze request.
+			$('#weatherSettingsModal').one('hide.bs.modal', function() {
+				me.updateWeather();
+			});
 		}	
 	},
 
 	addSavedCity: function(cityId) {
 		var savedCities = this.get('savedCities');
-		var searchedCities = this.get('searchedCities');
-		var city = searchedCities.findBy('id', cityId);
+		var city = this.get('searchedCities').findBy('id', cityId);
 		if(city) {
 			savedCities.addObject(city);
 		}		

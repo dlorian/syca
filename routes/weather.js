@@ -98,9 +98,11 @@ var doGet = function(url, callback) {
 
 var getWeather = function(id, callback) {
 	if(!id) { id = config.id; } // if no id is set, use default id 
+
+	console.log('ID used for the request: ' + id);
 	
 	var baseUri = reqOptions.getBaseUri();
-	var uri = baseUri + 'weather?id=' + config.id+'&units='+config.units.metric+'&lang='+config.lang.de+'';
+	var uri = baseUri + 'weather?id=' + id + '&units='+config.units.metric+'&lang='+config.lang.de+'';
 	
 	doGet(uri, function(data) {
 		// set up weather response object	
@@ -121,9 +123,7 @@ var getWeather = function(id, callback) {
 			}
 		}
 
-		if(callback) {
-			callback(weather);
-		}
+		if(callback) { callback(weather); }
 	});
 }
 
@@ -134,8 +134,6 @@ var getCityList = function(city, callback) {
 
 	doGet(uri, function(data) {
 		var cityList = [];
-
-		console.log(data);
 
 		// extract city information of response
 		if(data.list) {
@@ -154,27 +152,14 @@ var getCityList = function(city, callback) {
 			cities: cityList
 		}
 		
-		if(callback) {
-			callback(dataObj);
-		}
+		if(callback) { callback(dataObj); }
 	});
 }
 
 //TODO: Add error handling
-
-//For debugging pruposes
-//getWeather(function(data){console.log(data)});
-//getCityList('Erkelenz', function(data){console.log(data)})
-exports.getWeatherData = function(request, response) {
-	console.log('getWeatherData');
-	getWeather(null, function(weather){
-		response.send(weather);
-	});
-}
-
 exports.getWeatherDataById = function(request, response) {
-	getWeather(request.query.id, function(weather){
-		response.send(weather);
+	getWeather(request.query.id, function(data){
+		response.send(data);
 	});
 }
 
