@@ -19,7 +19,15 @@ EmberApp.Tour = DS.Model.extend({
 	windDirection: DS.attr('string'),
 	windSpeed: DS.attr('number'),
 	windStrength: DS.attr('number'),
-	windBlasts: DS.attr('number')
+	windBlasts: DS.attr('number'),
+
+	// required for form and model validation
+	validation: {
+		avgSpeed: {
+			presence: true,
+			pattern: '([0-9]{2}:)?[0-9]{2}:[0-9]{2}'
+		}
+	}
 });
 
 // TODO: in den Controller auslagern!!

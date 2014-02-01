@@ -31,7 +31,9 @@ EmberApp.TourDetailsController = Ember.ObjectController.extend(Ember.Evented, {
 			controller.setDisabled(true);
 			controller.trigger('saveFailed', {error: resp.error});
 		};
-
+		
+		var isValid = new EmberApp.CustomValidator();
+		isValid.isValid(this.get('model'));
 		this.get('model').save().then(onSuccess, onFail);
 	},
 
@@ -58,7 +60,7 @@ EmberApp.TourNewController = Ember.ObjectController.extend(Ember.Evented, {
 		};
  
 		this.get('model').save().then(onSuccess, onFail);		
-	}
+	},
 
 	actions: {
 		add: function() { this.save(); }
