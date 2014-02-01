@@ -24,11 +24,6 @@ EmberApp.TourNewRoute = Ember.Route.extend({
         return this.get("store").createRecord('tour');
     },
 
-    deactivate: function() {
-        // set the controller state to default
-        this.controllerFor('tour.new').routeDeactivated();
-    },
-
     setupController: function(controller, model) {
         controller.set('model', model);
     },
