@@ -71,8 +71,8 @@
 			</div><!-- /.col-md-8-->
 		</div><!-- /.row -->
 		<div>
-			<button class="btn btn-default" {{action 'setEditable'}}>Ändern</button>
-			<button class="btn btn-default" {{action 'save'}} {{bindAttr hidden="isDisabled"}}>Speichern</button>
+			<button class="btn btn-default" {{action 'setEditable'}} {{bindAttr hidden="isNotDisabled"}}>Ändern</button>
+			<button class="btn btn-default" {{action 'save'}} {{bindAttr hidden="isDisabled"}} {{bindAttr disabled="isNotDirty"}}>Speichern</button>
 		</div>
 	</form>
 </div>

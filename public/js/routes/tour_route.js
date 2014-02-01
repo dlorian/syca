@@ -20,7 +20,6 @@ EmberApp.TourDetailsRoute = Ember.Route.extend({
 EmberApp.TourNewRoute = Ember.Route.extend({
 
     model: function () {
-        // create a new empty record for type tour
         return this.get("store").createRecord('tour');
     },
 

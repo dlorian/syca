@@ -21,6 +21,14 @@ EmberApp.MessageView = Ember.View.extend({
 			me.showMsg(true, err.error)
 		});
 	},
+	
+	willDestroyElement: function() {
+		// when the routs get changed, the deactivate hook is triggered
+		// then set the state of the controller to default state
+		this.set('visible', false);
+		this.set('success', false);				
+		this.set('errMsg', 	null);
+	},
 
 	showMsg: function(success, errMsg) {
 		this.set('visible', true);
@@ -35,13 +43,5 @@ EmberApp.MessageView = Ember.View.extend({
 				me.set('visible', false);
 			});
 		},
-	},
-
-	willDestroyElement: function() {
-		// when the routs get changed, the deactivate hook is triggered
-		// then set the state of the controller to default state
-		this.set('visible', false);
-		this.set('success', false);				
-		this.set('errMsg', 	null);
 	}
 });
