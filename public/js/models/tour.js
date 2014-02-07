@@ -1,17 +1,21 @@
 EmberApp.Tour = DS.Model.extend({
 	// General
-	date: DS.attr('date'),
+	date: DS.attr('date', {
+		defaultValue: function() { 
+			return moment().format("DD.MM.YYYY"); 
+		}
+	}),
 	description: DS.attr('string'),
 
 	// Times
-	time20: DS.attr('number'),
-	time30: DS.attr('number'),
-	totalTime: DS.attr('number'),
+	time20: DS.attr('time'),
+	time30: DS.attr('time'),
+	totalTime: DS.attr('time'),
 
 	// Track
-	totalKm: DS.attr('number'),
-	avgSpeed: DS.attr('number'),
-	topSpeed: DS.attr('number'),
+	totalKm: DS.attr('string'),
+	avgSpeed: DS.attr('string'),
+	topSpeed: DS.attr('string'),
 	
 	// Weather
 	condition: DS.attr('string'),
@@ -25,7 +29,7 @@ EmberApp.Tour = DS.Model.extend({
 	validation: {
 		avgSpeed: {
 			presence: true,
-			pattern: '([0-9]{2}:)?[0-9]{2}:[0-9]{2}'
+			pattern: '^([0-9]{2}\:)?[0-9]{2}\:[0-9]{2}$'
 		}
 	}
 });

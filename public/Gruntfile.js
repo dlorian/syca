@@ -23,6 +23,8 @@ module.exports = function(grunt) {
                     'js/libs/handlebars-1.1.2.js',
                     'js/libs/ember-1.2.0.js',
                     'js/libs/bootstrap.min.js"',
+                    'js/libs/bootstrap-datepicker.js"',
+                    'js/libs/moment.min.js"',
                     'js/**/*.js',
                     'js/app.js'
                 ],
