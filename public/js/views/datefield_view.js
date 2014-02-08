@@ -1,9 +1,10 @@
 EmberApp.DateField = Ember.View.extend({
     // Layout for the view.
-    layout: Ember.Handlebars.compile('<input type="text" class="span2 form-control" id="datepicker">'),
-    attributeBindings: ['date'],
-    date: null,   // Stores the date object, which was set either manually by the input field or the datepicker.
-    value: null,  // Stores the string representation of the date object, which is stored in the date property.
+    layout: Ember.Handlebars.compile('<input type="text" class="form-control" id="datepicker">'),
+    attributeBindings: ['date', 'disabled'],
+    date: null,         // Stores the date object, which was set either manually by the input field or the datepicker.
+    value: null,        // Stores the string representation of the date object, which is stored in the date property.
+    disabled: false,    // Stroes the state of the input field.
 
     // Used jQuery elements
     $datepicker: null,  // jQuery element of the datepicker.
@@ -30,7 +31,11 @@ EmberApp.DateField = Ember.View.extend({
      */
     didInsertElement: function() {
         var me = this;
-        this.$datepicker = this.$('#datepicker').datepicker({ format: 'dd.mm.yyyy', weekStart: 1 })
+        // Cache the jQuery element
+        this.$datepicker = this.$('#datepicker');
+        
+        // Setup of the datepicker
+        this.$datepicker.datepicker({ format: 'dd.mm.yyyy', weekStart: 1 })
         .on('changeDate', function(event) {
             me.set('date', event.date);
         })
@@ -38,9 +43,22 @@ EmberApp.DateField = Ember.View.extend({
             me.set('value', me.$datepicker.val());
         });
 
+        // Set input field disabled if necessary
+        this.updateDisabled();
+
         // Initialize the value of the datepicker
-        this.$datepicker.datepicker('setValue', this.get('date'));
+        var date = this.get('date');
+        if(date) {  
+            // Do not set an undefined date to the datepicker
+            this.$datepicker.datepicker('setValue', this.get('date'));
+        }
     },
+
+    updateDisabled: function() {
+        var disabled = this.get('disabled');
+        this.$datepicker.attr('disabled', disabled);
+    }.observes('disabled'),
+
     /**
      * Updates the value porperty if the date property has changed.
      * Creates a corresponding string represantion for the date
