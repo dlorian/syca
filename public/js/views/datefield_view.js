@@ -1,6 +1,6 @@
 EmberApp.DateField = Ember.View.extend({
     // Layout for the view.
-    layout: Ember.Handlebars.compile('<input type="text" class="form-control" id="datepicker">'),
+    layout: Ember.Handlebars.compile('<input type="text" class="validate form-control" id="datepicker">'),
     attributeBindings: ['date', 'disabled'],
     date: null,         // Stores the date object, which was set either manually by the input field or the datepicker.
     value: null,        // Stores the string representation of the date object, which is stored in the date property.
@@ -50,7 +50,7 @@ EmberApp.DateField = Ember.View.extend({
         var date = this.get('date');
         if(date) {  
             // Do not set an undefined date to the datepicker
-            this.$datepicker.datepicker('setValue', this.get('date'));
+            this.$datepicker.datepicker('setValue', date);
         }
     },
 

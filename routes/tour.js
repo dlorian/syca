@@ -1,5 +1,8 @@
 var mongoose = require('mongoose');
 
+var timeMatch = [ /^([0-9]{2}\:)?[0-9]{2}\:[0-9]{2}$/ , "Time does not have the correct format [hh:mm:ss]. ({VALUE})"];
+var numberMatch = [ /^[0-9]{1,3}((\.|\,)[0-9]{1,2})?$/ , "Value does not have the correct format. ({VALUE})"]; 
+
 // Create a Schema for the model
 var tourSchema = new mongoose.Schema({
     // General
@@ -10,20 +13,20 @@ var tourSchema = new mongoose.Schema({
     description: String,
     date: Date,
     // Weather
-    temperature: Number,
-    condition: String,
-    windSpeed: Number,
+    condition:     String,
     windDirection: String,
-    windStrength: Number,
-    windBlasts: Number,
+    temperature:  { type: String, match: numberMatch },
+    windSpeed:    { type: Number, min: 1, max: 2},
+    windStrength: { type: Number, min: 1, max: 2},
+    windBlasts:   { type: Number, min: 1, max: 2},
     // Track
-    totalKm: Number,
-    topSpeed: Number,
-    avgSpeed: Number,
+    totalKm:  { type: String, match: numberMatch },
+    topSpeed: { type: String, match: numberMatch },
+    avgSpeed: { type: String, match: numberMatch },
     // Times
-    time20: Number,
-    time30: Number,
-    totalTime: Number
+    time20:    { type: String, match: timeMatch },
+    time30:    { type: String, match: timeMatch },
+    totalTime: { type: String, match: timeMatch }
 });
 
 // Should be used as a Singleton

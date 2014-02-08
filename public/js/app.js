@@ -14,4 +14,4 @@ require('models/*');
 require('views/*');
 require('router');
 require('store');
-require('validator');
+require('validators/*');
