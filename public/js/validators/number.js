@@ -21,7 +21,7 @@ EmberApp.NumberValidator = EmberApp.ValidatorBase.extend({
 
     typeValidator: function(validator, field, fieldValue) {
         var error, errMsg = '', validationMsg = '';
-        if(typeof fieldValue !== 'number') {
+        if(fieldValue && !$.isNumeric(fieldValue)) { // can be a string as a number
             errMsg = 'Given value '+ fieldValue +' is no type of number as expected.';
             validationMsg = this.numberValidationMessage['type'];
             error = this.createValidationError(errMsg, validationMsg);

@@ -15,32 +15,9 @@ var Validator = Ember.Object.extend({
 		}
 		this.set('validatorConfig', mapping);
 	},
-	
-	isValid: function(model) {
-		var validation = model.get('validation');
-
-		if(!validation) {
-			throw new Error('Required validation mapping is not defiend. Unable to verify model state');
-		}
-		try {
-			this.validate(model.get('data'), validation);
-		}
-		catch(e) {
-			console.log('Error while validation occured!');
-			console.log(e);
-			// if an error occured while valdiating the model 
-			// we have to refutn false for signaling that
-			//  the model is not valid.
-			var classNames = view.get('classNames');
-			view.rerender();
-			return false;
-		}
-		// if no error occured the model is valid
-		return true;
-	},
 
 	validateModel: function(model) {
-
+		// TODO: implement
 	},
 
 	validateField: function(field, model) {

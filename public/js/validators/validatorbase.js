@@ -16,6 +16,10 @@ EmberApp.ValidatorBase = Ember.Object.extend({
         this.set('validatorConfig', config);
     },
 
+    addValidatorConfig: function(config) {
+        $.extend(this.validatorConfig, config);
+    },
+
     validate: function(fieldValidation, field, fieldValue) {
         var me = this;
         $.each(fieldValidation, function(name, validator) {

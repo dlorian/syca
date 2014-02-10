@@ -13,19 +13,15 @@ EmberApp.TourFormView = Ember.View.extend({
 
     // Added to the form-group in case of an invalid date. Used for displaying an error message.
     validationMsgEl: '<span id="validationMsg" class="help-block"></span>',
-    
+
 
     $formContainer: null,
     $formFields: [],
 
-    init: function() {
-        this._super();
-    },
-
     didInsertElement: function() {
         var me = this;
 
-        // Cache elements 
+        // Cache elements
         this.$formContainer = $('#formContainer');
         this.$formFields = this.$formContainer.find('input.validate');
 
@@ -38,15 +34,27 @@ EmberApp.TourFormView = Ember.View.extend({
         });
     },
 
-    submit: function() {
-        var controller = this.get('controller');
-        var model = this.get('model');
-        var isValid = this.validate();
+    actions: {
+        submit: function() {
+            var controller = this.get('controller');
+            var formIsValid = this.validateForm();
 
-        if(isValid && controller.save) {
-            // only do save is form is valid
-            controller.save(); 
-        }
+            if(formIsValid && controller.save) {
+                // only do save is form is valid
+                controller.save();
+            }
+    },
+
+    validateForm: function() {
+        var me = this;
+        isValid = true;
+        this.$formFields.each(function(index, field){
+            if(!me.validateField(field)) {
+                // if one field is invalid, the whole form is invalid
+                isValid = false;
+            }
+        });
+        return true;
     },
 
     /**
@@ -67,26 +75,27 @@ EmberApp.TourFormView = Ember.View.extend({
                 me.markFieldAsInvalid(field, err.validationMsg);
             });
         }
+        return isValid;
     },
 
     /**
-     * Marks the input of the field as valid. 
+     * Marks the input of the field as valid.
      */
     markFieldAsValid: function(field) {
         var parentDiv = $(field).parents('div.form-group');
-        
+
         // Remove possible error indications
         parentDiv.removeClass(this.errorClass);
         parentDiv.find('.form-control-feedback').remove();
         this.hideHelpForField(field);
 
         // Add error indications to the element
-        parentDiv.addClass(this.successClass);    
+        parentDiv.addClass(this.successClass);
         $(this.successFeedbackEl).insertAfter(field);
     },
 
     /**
-     * Marks the input of the field as invalid. 
+     * Marks the input of the field as invalid.
      */
     markFieldAsInvalid: function(field, validationMsg) {
         var parentDiv = $(field).parents('div.form-group');
@@ -109,11 +118,11 @@ EmberApp.TourFormView = Ember.View.extend({
             var helpBlock = $(field).siblings('.help-block');
             if(helpBlock.length) {
                 // if help block already exists, show message only
-                mshelpBlockg.html(validationMsg);
+                helpBlock.html(validationMsg);
             }
             else {
-               $(this.validationMsgEl).insertAfter(field).html(validationMsg); 
-            }    
+               $(this.validationMsgEl).insertAfter(field).html(validationMsg);
+            }
         }
     },
 

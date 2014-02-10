@@ -1,10 +1,11 @@
 EmberApp.DateField = Ember.View.extend({
     // Layout for the view.
     layout: Ember.Handlebars.compile('<input type="text" class="validate form-control" id="datepicker">'),
-    attributeBindings: ['date', 'disabled'],
+    attributeBindings: ['date', 'disabled', 'name'],
     date: null,         // Stores the date object, which was set either manually by the input field or the datepicker.
     value: null,        // Stores the string representation of the date object, which is stored in the date property.
     disabled: false,    // Stroes the state of the input field.
+    name: null,
 
     // Used jQuery elements
     $datepicker: null,  // jQuery element of the datepicker.
@@ -21,10 +22,6 @@ EmberApp.DateField = Ember.View.extend({
 
     // Date format used for valdiaton of value input
     validDateString: 'DD.MM.YYYY',
-
-    init: function() {
-        this._super();
-    },
 
     /**
      * When the view was inserted in the DOM, initialization of the datepicker can be done
@@ -45,6 +42,7 @@ EmberApp.DateField = Ember.View.extend({
 
         // Set input field disabled if necessary
         this.updateDisabled();
+        this.updateName();
 
         // Initialize the value of the datepicker
         var date = this.get('date');
@@ -58,6 +56,11 @@ EmberApp.DateField = Ember.View.extend({
         var disabled = this.get('disabled');
         this.$datepicker.attr('disabled', disabled);
     }.observes('disabled'),
+
+    updateName: function() {
+        var name = this.get('name');
+        this.$datepicker.attr('name', name);
+    }.observes('name'),
 
     /**
      * Updates the value porperty if the date property has changed.
@@ -88,7 +91,7 @@ EmberApp.DateField = Ember.View.extend({
             var date = this.getDateForValue(value);
             this.set('date', date);
         }
-        this.markAsInvalid(!isValid);
+        //this.markAsInvalid(!isValid);
     }.observes('value'),
 
     /**

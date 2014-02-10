@@ -100,7 +100,8 @@ EmberApp.Tour = DS.Model.extend({
 		},
 		date: {
 			type: 'date',
-			presence: true
+			presence: true,
+			format: 'dd.mm.yyyy'
 		},
 		description: {
 			type: 'string'
