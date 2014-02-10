@@ -53,19 +53,26 @@ var Validator = Ember.Object.extend({
 		var fieldValidation = validations[field];
 		if(fieldValidation['type']) {
 			try {
-				debugger
 				var validatorObject = this.validatorConfig[fieldValidation['type']];
 				if(!validatorObject) {
 					throw new Error('Invalid validator type: ' + validationType);
 				}
-				validatorObject.validate(fieldValidation, fieldValue);
+				validatorObject.validate(fieldValidation, field, fieldValue);
 			}
-			catch(e) {
+			catch(err) {
 				errors.push({
                     field: field,
                     value: fieldValue,
-                    errMsg: e.message
+                    errType: err.type,
+                    validationMsg: err.validationMessage
                 });
+				// Log errors to console for debugging purpose TODO: Add logging framework
+                if(err.type === 'ValidationError' || err.type === 'ValidatorError') {
+                	console.log(err.message);
+                }
+                else {
+                	console.log('Error occurd while validation: ' + err.message);
+                }
 			}
 		}
 

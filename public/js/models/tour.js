@@ -28,8 +28,82 @@ EmberApp.Tour = DS.Model.extend({
 	// required for form and model validation
 	validation: {
 		avgSpeed: {
+			type: 'string',
 			presence: true,
-			pattern: '^([0-9]{2}\:)?[0-9]{2}\:[0-9]{2}$'
+			pattern: {
+				regexp: '^[0-9]{1,3}((\.|\,)[0-9]{1,2})?$',
+				text: '000.00 oder 000,00'
+			}
+		},
+		topSpeed: {
+			type: 'string',
+			presence: true,
+			pattern: {
+				regexp: '^[0-9]{1,3}((\.|\,)[0-9]{1,2})?$',
+				text: '000.00 oder 000,00'
+			}
+		},
+		totalKm: {
+			type: 'string',
+			presence: true,
+			pattern: {
+				regexp: '^[0-9]{1,3}((\.|\,)[0-9]{1,2})?$',
+				text: '000.00 oder 000,00'
+			}
+		},
+		time20: {
+			type: 'string',
+			presence: true,
+			pattern: {
+				regexp: '^([0-9]{2}\:)?[0-9]{2}\:[0-9]{2}$',
+				text: '00:00:00'
+			}
+		},
+		time30: {
+			type: 'string',
+			presence: true,
+			pattern: {
+				regexp: '^([0-9]{2}\:)?[0-9]{2}\:[0-9]{2}$',
+				text: '00:00:00'
+			}
+		},
+		totalTime: {
+			type: 'string',
+			presence: true,
+			pattern: {
+				regexp: '^([0-9]{2}\:)?[0-9]{2}\:[0-9]{2}$',
+				text: '00:00:00'
+			}
+		},
+		windSpeed: {
+			type: 'number',
+			presence: true,
+			min: 1,
+			max: 2
+		},
+		windStrength: {
+			type: 'number',
+			presence: true,
+			min: 1,
+			max: 2
+		},
+		windBlasts: {
+			type: 'number',
+			presence: true,
+			min: 1,
+			max: 2
+		},
+		temperature: {
+			type: 'string',
+			presence: true,
+			pattern: '^(-)?[0-9]{1,2}((\.|\,)[0-9]{1,2})?$'
+		},
+		date: {
+			type: 'date',
+			presence: true
+		},
+		description: {
+			type: 'string'
 		}
 	}
 });

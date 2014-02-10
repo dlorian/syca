@@ -10,6 +10,9 @@ EmberApp.TourFormView = Ember.View.extend({
     // Validation success css properties
     successClass: 'has-success has-feedback',
     successFeedbackEl: '<span class="glyphicon glyphicon-ok form-control-feedback"></span>',
+
+    // Added to the form-group in case of an invalid date. Used for displaying an error message.
+    validationMsgEl: '<span id="validationMsg" class="help-block"></span>',
     
 
     $formContainer: null,
@@ -36,7 +39,6 @@ EmberApp.TourFormView = Ember.View.extend({
     },
 
     submit: function() {
-        debugger
         var controller = this.get('controller');
         var model = this.get('model');
         var isValid = this.validate();
@@ -52,6 +54,7 @@ EmberApp.TourFormView = Ember.View.extend({
      */
     validateField: function(field) {
         // Get needed properties of the field.
+        var me = this;
         var name = $(field).attr('name');
         var error = EmberApp.Validator.validateField(name, this.get('model'));
 
@@ -60,10 +63,10 @@ EmberApp.TourFormView = Ember.View.extend({
             this.markFieldAsValid(field);
         }
         else {
-            this.markFieldAsInvalid(field);
+            $.each(error, function(index, err) {
+                me.markFieldAsInvalid(field, err.validationMsg);
+            });
         }
-
-        
     },
 
     /**
@@ -75,6 +78,7 @@ EmberApp.TourFormView = Ember.View.extend({
         // Remove possible error indications
         parentDiv.removeClass(this.errorClass);
         parentDiv.find('.form-control-feedback').remove();
+        this.hideHelpForField(field);
 
         // Add error indications to the element
         parentDiv.addClass(this.successClass);    
@@ -84,7 +88,7 @@ EmberApp.TourFormView = Ember.View.extend({
     /**
      * Marks the input of the field as invalid. 
      */
-    markFieldAsInvalid: function(field) {
+    markFieldAsInvalid: function(field, validationMsg) {
         var parentDiv = $(field).parents('div.form-group');
 
         // Remove possible success indications
@@ -94,19 +98,29 @@ EmberApp.TourFormView = Ember.View.extend({
         // Add success indications to the element
         parentDiv.addClass(this.errorClass);
         $(this.errorFeedbackEl).insertAfter(field);
+        this.showHelpForField(field, validationMsg);
     },
 
     /**
      * Shows the help text block.
      */
-    showHelpForField: function(field) {
-        $(this.helpBlock).insertAfter(field).html(this.helpText); // Does this work??!! Verify!   
+    showHelpForField: function(field, validationMsg) {
+        if(validationMsg) {
+            var helpBlock = $(field).siblings('.help-block');
+            if(helpBlock.length) {
+                // if help block already exists, show message only
+                mshelpBlockg.html(validationMsg);
+            }
+            else {
+               $(this.validationMsgEl).insertAfter(field).html(validationMsg); 
+            }    
+        }
     },
 
     /**
      * Shows the help text block.
      */
     hideHelpForField: function(field) {
-        $(field).find('#dateHelp').remove(); // does this work!!?? I guess not
+        $(field).siblings('.help-block').remove();
     }
 });

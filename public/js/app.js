@@ -14,4 +14,7 @@ require('models/*');
 require('views/*');
 require('router');
 require('store');
-require('validators/*');
+
+// Import validator class via main.js.
+// main.js describes the import of validators
+require('validators/main');
