@@ -10,7 +10,7 @@ EmberApp.CustomValidator = Ember.Object.extend({
         this.set('validatorConfig', config);
     },
 
-    typeValidator: function(value) {
+    typeValidator: function(fieldValue) {
         if(typeof value !== 'function') {
             throw new Error('Given value '+ fieldValue +' is no type of function as expected.');
         }

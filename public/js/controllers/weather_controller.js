@@ -2,11 +2,11 @@ EmberApp.WeatherController = Ember.ObjectController.extend({
 	// ----------------------------
 	// Used for representing the ui
 	weather: {},		// Holds the weather data for the current city.
-	currentCity: {},	// Holds the city which is selected and saved by the user.	
+	currentCity: {},	// Holds the city which is selected and saved by the user.
 	savedCities: [],	// All cities the user has saved as his favorites.
-	searchedCities: [],	// Temp array of cities. Filled with the response of 
+	searchedCities: [],	// Temp array of cities. Filled with the response of
 						// search request.
-	ajaxLoader: null,	// Holds the necessary loader div element 
+	ajaxLoader: null,	// Holds the necessary loader div element
 	// ----------------------------
 
 	// base config of the view
@@ -14,7 +14,7 @@ EmberApp.WeatherController = Ember.ObjectController.extend({
 		baseUri: '/api/weather',
 		storageKey: 'weatherView',
 		$settingsLoader: null,
-		$weatherLoader: null  
+		$weatherLoader: null
 	},
 
 	// CSS-Class used for displaying the correct icon in the view.
@@ -49,8 +49,8 @@ EmberApp.WeatherController = Ember.ObjectController.extend({
 		$.each(this.savedCities, function(index, city) {
 			city.selected = (city.id === cityId) ? true : false;
 		});
-		
-	}.observes('savedCities', 'currentCity'), 
+
+	}.observes('savedCities', 'currentCity'),
 
 	init: function() {
 		var me = this;
@@ -68,7 +68,7 @@ EmberApp.WeatherController = Ember.ObjectController.extend({
 
 			me.loadSettings();
 			me.updateWeather();
-			
+
 		}).ajaxStart(function() {
 			var loader = me.get('ajaxLoader');
 			loader.show();
@@ -93,7 +93,7 @@ EmberApp.WeatherController = Ember.ObjectController.extend({
 			});
 
 			this.isInitialized = true;
-		}			
+		}
 	},
 
 	storeSettings: function() {
@@ -121,7 +121,7 @@ EmberApp.WeatherController = Ember.ObjectController.extend({
 				this.set('currentCity', settings.city);
 				this.set('savedCities', settings.cities);
 			}
-		}		
+		}
 	},
 
 	/**
@@ -158,7 +158,7 @@ EmberApp.WeatherController = Ember.ObjectController.extend({
 	},
 
 	loadFromServer: function(uri, params, callback) {
-		$.getJSON(uri, params, function(data, textStatus, jqXHR) { callback(data); });
+		$.getJSON(uri, params, function(data, textStatus) { callback(data, textStatus); });
 	},
 
 	selectCity: function(cityId) {
@@ -174,7 +174,7 @@ EmberApp.WeatherController = Ember.ObjectController.extend({
 			$('#weatherSettingsModal').one('hide.bs.modal', function() {
 				me.updateWeather();
 			});
-		}	
+		}
 	},
 
 	addSavedCity: function(cityId) {
@@ -182,7 +182,7 @@ EmberApp.WeatherController = Ember.ObjectController.extend({
 		var city = this.get('searchedCities').findBy('id', cityId);
 		if(city) {
 			savedCities.addObject(city);
-		}		
+		}
 	},
 
 	removeSavedCity: function(cityId) {
@@ -202,9 +202,9 @@ EmberApp.WeatherController = Ember.ObjectController.extend({
 			this.searchCity(city);
 		},
 		showSettings: function() {
-			this.initModalDialog();	
+			this.initModalDialog();
 			// show modal dialog
-			$('#weatherSettingsModal').modal();			
+			$('#weatherSettingsModal').modal();
 		},
 		addCity: function(cityId) {
 			this.addSavedCity(cityId);

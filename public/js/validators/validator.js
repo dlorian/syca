@@ -7,21 +7,16 @@ var Validator = Ember.Object.extend({
 	init: function() {
 		// Initialize a hash used for validation
 		var mapping = {
-			'string': 	new EmberApp.StringValidator(),
-			'number': 	new EmberApp.NumberValidator(),
-			'date': 	new EmberApp.DateValidator(),
-			'boolean': 	new EmberApp.BooleanValidator(),
-			'custom': 	new EmberApp.CustomValidator()
-		}
+			'string':   new EmberApp.StringValidator(),
+			'number':   new EmberApp.NumberValidator(),
+			'date':     new EmberApp.DateValidator(),
+			'boolean':  new EmberApp.BooleanValidator(),
+			'custom':   new EmberApp.CustomValidator()
+		};
 		this.set('validatorConfig', mapping);
 	},
 
-	validateModel: function(model) {
-		// TODO: implement
-	},
-
 	validateField: function(field, model) {
-		var me = this;
 		var errors = [];
 		var fieldValue = model.get(field);
 		var validations = model.get('validation');
@@ -32,7 +27,7 @@ var Validator = Ember.Object.extend({
 			try {
 				var validatorObject = this.validatorConfig[fieldValidation['type']];
 				if(!validatorObject) {
-					throw new Error('Invalid validator type: ' + validationType);
+					throw new Error('Invalid validator type: ' + fieldValidation['type']);
 				}
 				validatorObject.validate(fieldValidation, field, fieldValue);
 			}
@@ -45,10 +40,10 @@ var Validator = Ember.Object.extend({
                 });
 				// Log errors to console for debugging purpose TODO: Add logging framework
                 if(err.type === 'ValidationError' || err.type === 'ValidatorError') {
-                	console.log(err.message);
+                    console.log(err.message);
                 }
                 else {
-                	console.log('Error occurd while validation: ' + err.message);
+                    console.log('Error occurd while validation: ' + err.message);
                 }
 			}
 		}

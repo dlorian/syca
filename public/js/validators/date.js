@@ -16,34 +16,34 @@ EmberApp.DateValidator = EmberApp.ValidatorBase.extend({
     },
 
     typeValidator: function(validator, field, fieldValue) {
-        debugger
         var isValidDate = true;
         if(!fieldValue instanceof Date) {
             isValidDate = false;
-            
+
         }
         else if(typeof fieldValue === 'string') {
             try {
-               var timestamp = Date.parse(fieldValue); 
+                // try to parse the date
+                Date.parse(fieldValue);
             }
             catch(err) {
-                isValidDate = false; 
-            }                
+                isValidDate = false;
+            }
         }
         if(isValidDate === false) {
-            errMsg = 'Given value "'+ fieldValue +'" is no type of Date as expected.';
-            validationMsg = this.stringValidationMessage['type'];
-            error = this.createValidationError(errMsg, validationMsg, validator);
+            var errMsg = 'Given value "'+ fieldValue +'" is no type of Date as expected.';
+            var validationMsg = this.stringValidationMessage['type'];
+            var error = this.createValidationError(errMsg, validationMsg, validator);
             throw error;
-        }        
+        }
     },
 
     formatValidator: function(validator, field, fieldValue) {
-        debugger
+        var error, errMsg, validationMsg;
         if(typeof validator !== 'string') {
             errMsg = 'Invalid date format string.';
             error = this.createValidatorError(errMsg);
-            throw error
+            throw error;
         }
         if(!moment(fieldValue, validator.toUpperCase(), true).isValid()) {
             errMsg = 'Given value "'+ fieldValue + '" for field "' + field + '" does not match the expecterd date format.';

@@ -30,7 +30,7 @@ EmberApp.TourFormView = Ember.View.extend({
             // Validate field on value change
             $(field).change(function(event) {
                 me.validateField(event.target);
-            })
+            });
         });
     },
 
@@ -43,11 +43,12 @@ EmberApp.TourFormView = Ember.View.extend({
                 // only do save is form is valid
                 controller.save();
             }
+        }
     },
 
     validateForm: function() {
         var me = this;
-        isValid = true;
+        var isValid = true;
         this.$formFields.each(function(index, field){
             if(!me.validateField(field)) {
                 // if one field is invalid, the whole form is invalid

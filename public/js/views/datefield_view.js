@@ -30,13 +30,13 @@ EmberApp.DateField = Ember.View.extend({
         var me = this;
         // Cache the jQuery element
         this.$datepicker = this.$('#datepicker');
-        
+
         // Setup of the datepicker
         this.$datepicker.datepicker({ format: 'dd.mm.yyyy', weekStart: 1 })
         .on('changeDate', function(event) {
             me.set('date', event.date);
         })
-        .on('change', function(event) {
+        .on('change', function() {
             me.set('value', me.$datepicker.val());
         });
 
@@ -46,7 +46,7 @@ EmberApp.DateField = Ember.View.extend({
 
         // Initialize the value of the datepicker
         var date = this.get('date');
-        if(date) {  
+        if(date) {
             // Do not set an undefined date to the datepicker
             this.$datepicker.datepicker('setValue', date);
         }
@@ -73,7 +73,7 @@ EmberApp.DateField = Ember.View.extend({
 
         var isValid = this.isValidDate(date);
         if(isValid && value !== this.getValueForDate(date)) {
-            this.set('value', date)
+            this.set('value', date);
         }
         // mark input field valid or invalid, regarding isValid
         this.markAsInvalid(!isValid);
@@ -81,7 +81,7 @@ EmberApp.DateField = Ember.View.extend({
 
     /**
      * Updates the date property if the value property has changed.
-     * Creates a date object based on the string represantion of the 
+     * Creates a date object based on the string represantion of the
      * value attribute.
      */
     updateDate: function() {
@@ -114,10 +114,10 @@ EmberApp.DateField = Ember.View.extend({
     },
 
     /**
-     * Checks if the given date is a valid date. Date can either be a string 
+     * Checks if the given date is a valid date. Date can either be a string
      * representation of a date or a date object.
      * The validation is based on the 'validateString' property.
-     * 
+     *
      * Returns true if the date is valid, else vale
      */
     isValidDate: function(date) {
@@ -127,14 +127,14 @@ EmberApp.DateField = Ember.View.extend({
         }
         else if(typeof date === 'string' && moment(date, this.get('validDateString'), true).isValid()) {
             // use strict date parsing
-            isValid = true;                
+            isValid = true;
         }
         return isValid;
     },
 
     /**
-     * Marks the input field either as valid or invalid. 
-     * If param 'invalid' is true the input will be marked 
+     * Marks the input field either as valid or invalid.
+     * If param 'invalid' is true the input will be marked
      * as invalid, else as valid.
      */
     markAsInvalid: function(invalid) {
@@ -153,7 +153,7 @@ EmberApp.DateField = Ember.View.extend({
      * Shows the help text block.
      */
     showHelp: function() {
-        $(this.helpBlock).insertAfter('#datepicker').html(this.helpText);        
+        $(this.helpBlock).insertAfter('#datepicker').html(this.helpText);
     },
 
     /**

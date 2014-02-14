@@ -8,26 +8,26 @@ EmberApp.MessageView = Ember.View.extend({
 
 	init: function() {
 		// call super to initialize the proprties of the view
-		this._super(); 
+		this._super();
 
 		var me = this;
 		var controller = this.get('controller');
 
 		controller.on('saveSuccessfull', function() {
-			me.showMsg(true)
+			me.showMsg(true);
 		});
 
 		controller.on('saveFailed', function(err) {
-			me.showMsg(true, err.error)
+			me.showMsg(true, err.error);
 		});
 	},
-	
+
 	willDestroyElement: function() {
 		// when the routs get changed, the deactivate hook is triggered
 		// then set the state of the controller to default state
 		this.set('visible', false);
-		this.set('success', false);				
-		this.set('errMsg', 	null);
+		this.set('success', false);
+		this.set('errMsg',  null);
 	},
 
 	showMsg: function(success, errMsg) {

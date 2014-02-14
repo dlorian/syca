@@ -1,6 +1,6 @@
 EmberApp.NumberValidator = EmberApp.ValidatorBase.extend({
 
-    numberValidationMessage: { 
+    numberValidationMessage: {
         'type': 'Der eingegeben Wert entspricht nicht einer Zahl. Bitte eine Zahl angeben.',
         'min': 'Der eingebene Wert muss größer als {0} sein.',
         'max': 'Der eingebene Wert muss kleiner als {0} sein.',
@@ -15,12 +15,12 @@ EmberApp.NumberValidator = EmberApp.ValidatorBase.extend({
             'min': this.minValidator,
             'max': this.maxValidator,
             'equal': this.equalValidator,
-        }
+        };
         $.extend(this.validatorConfig, config);
-    },   
+    },
 
     typeValidator: function(validator, field, fieldValue) {
-        var error, errMsg = '', validationMsg = '';
+        var error, errMsg, validationMsg;
         if(fieldValue && !$.isNumeric(fieldValue)) { // can be a string as a number
             errMsg = 'Given value '+ fieldValue +' is no type of number as expected.';
             validationMsg = this.numberValidationMessage['type'];
@@ -30,7 +30,7 @@ EmberApp.NumberValidator = EmberApp.ValidatorBase.extend({
     },
 
     minValidator: function(validator, field, fieldValue) {
-        var error, errMsg = '';
+        var error, errMsg, validationMsg;
         if(typeof validator !== 'number') {
             errMsg = 'Invalid value for validator. Number expected for min validation.';
             error = this.createValidatorError(errMsg);
@@ -45,7 +45,7 @@ EmberApp.NumberValidator = EmberApp.ValidatorBase.extend({
     },
 
     maxValidator: function(validator, field, fieldValue) {
-        var error, errMsg = '';
+        var error, errMsg, validationMsg;
         if(typeof validator !== 'number') {
             errMsg = 'Invalid value for validation. Number expected for min validation';
             error = this.createValidatorError(errMsg);
@@ -60,7 +60,7 @@ EmberApp.NumberValidator = EmberApp.ValidatorBase.extend({
     },
 
     equalValidator: function(validator, field, fieldValue) {
-        var error, errMsg = '';
+        var error, errMsg, validationMsg;
         if(typeof validator !== 'number') {
             errMsg = 'Invalid value for validation. Number expected for min validation';
             error = this.createValidatorError(errMsg);

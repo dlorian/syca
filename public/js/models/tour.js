@@ -1,8 +1,8 @@
 EmberApp.Tour = DS.Model.extend({
 	// General
 	date: DS.attr('date', {
-		defaultValue: function() { 
-			return moment().format("DD.MM.YYYY"); 
+		defaultValue: function() {
+			return moment().format("DD.MM.YYYY");
 		}
 	}),
 	description: DS.attr('string'),
@@ -16,7 +16,7 @@ EmberApp.Tour = DS.Model.extend({
 	totalKm: DS.attr('string'),
 	avgSpeed: DS.attr('string'),
 	topSpeed: DS.attr('string'),
-	
+
 	// Weather
 	condition: DS.attr('string'),
 	temperature: DS.attr('number'),
@@ -31,7 +31,7 @@ EmberApp.Tour = DS.Model.extend({
 			type: 'string',
 			presence: true,
 			pattern: {
-				regexp: '^[0-9]{1,3}((\.|\,)[0-9]{1,2})?$',
+				regexp: '^[0-9]{1,3}((\\.|\\,)[0-9]{1,2})?$',
 				text: '000.00 oder 000,00'
 			}
 		},
@@ -39,7 +39,7 @@ EmberApp.Tour = DS.Model.extend({
 			type: 'string',
 			presence: true,
 			pattern: {
-				regexp: '^[0-9]{1,3}((\.|\,)[0-9]{1,2})?$',
+				regexp: '^[0-9]{1,3}((\\.|\\,)[0-9]{1,2})?$',
 				text: '000.00 oder 000,00'
 			}
 		},
@@ -47,7 +47,7 @@ EmberApp.Tour = DS.Model.extend({
 			type: 'string',
 			presence: true,
 			pattern: {
-				regexp: '^[0-9]{1,3}((\.|\,)[0-9]{1,2})?$',
+				regexp: '^[0-9]{1,3}((\\.|\\,)[0-9]{1,2})?$',
 				text: '000.00 oder 000,00'
 			}
 		},
@@ -55,7 +55,7 @@ EmberApp.Tour = DS.Model.extend({
 			type: 'string',
 			presence: true,
 			pattern: {
-				regexp: '^([0-9]{2}\:)?[0-9]{2}\:[0-9]{2}$',
+				regexp: '^([0-9]{2}\\:)?[0-9]{2}\\:[0-9]{2}$',
 				text: '00:00:00'
 			}
 		},
@@ -63,7 +63,7 @@ EmberApp.Tour = DS.Model.extend({
 			type: 'string',
 			presence: true,
 			pattern: {
-				regexp: '^([0-9]{2}\:)?[0-9]{2}\:[0-9]{2}$',
+				regexp: '^([0-9]{2}\\:)?[0-9]{2}\\:[0-9]{2}$',
 				text: '00:00:00'
 			}
 		},
@@ -71,7 +71,7 @@ EmberApp.Tour = DS.Model.extend({
 			type: 'string',
 			presence: true,
 			pattern: {
-				regexp: '^([0-9]{2}\:)?[0-9]{2}\:[0-9]{2}$',
+				regexp: '^([0-9]{2}\\:)?[0-9]{2}\\:[0-9]{2}$',
 				text: '00:00:00'
 			}
 		},
@@ -96,7 +96,7 @@ EmberApp.Tour = DS.Model.extend({
 		temperature: {
 			type: 'string',
 			presence: true,
-			pattern: '^(-)?[0-9]{1,2}((\.|\,)[0-9]{1,2})?$'
+			pattern: '^(-)?[0-9]{1,2}((\\.|\\,)[0-9]{1,2})?$'
 		},
 		date: {
 			type: 'date',

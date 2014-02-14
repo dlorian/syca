@@ -16,15 +16,15 @@ EmberApp.StringValidator =  EmberApp.ValidatorBase.extend({
 
     typeValidator: function(validator, field, fieldValue) {
         if(fieldValue && typeof fieldValue !== 'string') {
-            errMsg = 'Given value '+ fieldValue + ' for field "' + field + '" is no type of string as expected.';
-            validationMsg = this.stringValidationMessage['type'];
-            error = this.createValidationError(errMsg, validationMsg, validator);
+            var errMsg = 'Given value '+ fieldValue + ' for field "' + field + '" is no type of string as expected.';
+            var validationMsg = this.stringValidationMessage['type'];
+            var error = this.createValidationError(errMsg, validationMsg, validator);
             throw error;
         }
     },
 
     patternValidator: function(validator, field, fieldValue) {
-        var error, errMsg, pattern = null, text = null;
+        var error, errMsg, validationMsg, pattern = null, text = null;
         if(typeof validator === 'string') {
             pattern = validator;
         }

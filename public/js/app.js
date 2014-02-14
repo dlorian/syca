@@ -1,4 +1,4 @@
-var EmberApp = window.EmberApp = Ember.Application.create({
+window.EmberApp = Ember.Application.create({
 	LOG_TRANSITIONS: true,
     LOG_BINDINGS: true,
     LOG_VIEW_LOOKUPS: true,

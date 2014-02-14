@@ -26,7 +26,7 @@ EmberApp.TourDetailsController = Ember.ObjectController.extend(Ember.Evented, {
 	save: function() {
 		var controller = this;
 
-		var onSuccess = function(resp) {
+		var onSuccess = function() {
 			controller.setDisabled(true);
 			controller.trigger('saveSuccessfull');
 		};
@@ -53,7 +53,7 @@ EmberApp.TourNewController = Ember.ObjectController.extend(Ember.Evented, {
 	save: function() {
 		var controller = this;
 
-		var onSuccess = function(resp) {
+		var onSuccess = function() {
 			controller.trigger('saveSuccessfull');
 		};
 

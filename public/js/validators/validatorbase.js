@@ -1,5 +1,5 @@
 EmberApp.ValidatorBase = Ember.Object.extend({
-    
+
     validationMessages: {
         presence: 'Eingabe erforderlich!'
     },
@@ -8,11 +8,10 @@ EmberApp.ValidatorBase = Ember.Object.extend({
     validatorConfig: {},
 
     init: function() {
-        var me = this;
         // Initialize the base validation configuration
         var config = {
             'presence': this.presenceValidator
-        }
+        };
         this.set('validatorConfig', config);
     },
 
@@ -45,7 +44,7 @@ EmberApp.ValidatorBase = Ember.Object.extend({
     /**
      * Creates a custom validation error which indicates an invalid value.
      * @param errMsg: Usual error message used for console logging.
-     * @param validationMsg: Special validation message used for displaying validation error in the UI. 
+     * @param validationMsg: Special validation message used for displaying validation error in the UI.
      * @return Retuns an error object with error type 'ValidationError' an the given messages.
      */
     createValidationError: function(errMsg, validationMsg) {
@@ -70,7 +69,7 @@ EmberApp.ValidatorBase = Ember.Object.extend({
     /**
      * Creates a custom validator error which indicates an invalid validator config.
      * @param errMsg: Usual error message used for console logging.
-     * @param validationMsg: Special validation message used for displaying validation error in the UI. 
+     * @param validationMsg: Special validation message used for displaying validation error in the UI.
      * @return Retuns an error object with error type 'ValidationError' an the given messages.
      */
     createValidatorError: function(errMsg) {
@@ -87,9 +86,9 @@ EmberApp.ValidatorBase = Ember.Object.extend({
      */
     presenceValidator: function(validator, field, fieldValue) {
         if(validator === true) {
-            if(!fieldValue || fieldValue === '') { 
+            if(!fieldValue || fieldValue === '') {
                 var errMsg = 'A value for "' + field + '" is required but not defined.';
-                var err = this.createValidationError(errMsg, this.validationMessages['presence']);              
+                var err = this.createValidationError(errMsg, this.validationMessages['presence']);
                 throw err;
             }
         }
