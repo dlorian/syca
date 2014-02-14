@@ -8,6 +8,10 @@
   "dependencies": {
     "express": "~3.4.8",
     "mongodb": "~1.2.14",
-    "mongoose": "~3.8.5"
+    "mongoose": "~3.8.5",
+    "passport": "~0.2.0",
+    "passport-local": "~0.1.6",
+    "passport-local-mongoose": "~0.2.5",
+    "bcrypt-nodejs": "latest"
   }
 }

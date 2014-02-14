@@ -1,22 +1,23 @@
 <div id="wrapper">
-      
+
       <!-- Sidebar -->
       <div id="sidebar-wrapper">
         <ul class="sidebar-nav">
           <li class="sidebar-brand"><a href="#">SYCA</a></li>
           <li class="active">{{#linkTo 'home'}}Home{{/linkTo}}</li>
+          <li>{{#linkTo 'login'}}Anmelden{{/linkTo}}</li>
           <li>{{#linkTo 'tours'}}Touren{{/linkTo}}</li>
           <li>{{#linkTo 'tour.new'}}Neue Tour{{/linkTo}}</li>
           <li>{{#linkTo 'statistics'}}Statistik{{/linkTo}}</li>
         </ul>
-      </div>          
+      </div>
       <!-- Page content -->
       <div id="page-content-wrapper">
         <!-- Keep all page content within the page-content inset div! -->
         <div class="page-content inset">
            {{outlet}}
         </div>
-      </div>     
+      </div>
     </div>
     <!-- Custom JavaScript for the Menu Toggle -->
     <script>

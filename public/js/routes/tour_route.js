@@ -1,11 +1,11 @@
-EmberApp.TourRoute = Ember.Route.extend({
+EmberApp.TourRoute = EmberApp.AuthenticatedRoute.extend({
 	// currently do nothing
 });
 
-EmberApp.TourDetailsRoute = Ember.Route.extend({
+EmberApp.TourDetailsRoute = EmberApp.AuthenticatedRoute.extend({
 
     model: function (param) {
-	   return this.get('store').find('tour', param.tour_id);
+        return this.get('store').find('tour', param.tour_id);
     },
 
     setupController: function(controller, model) {
@@ -17,7 +17,7 @@ EmberApp.TourDetailsRoute = Ember.Route.extend({
     }
 });
 
-EmberApp.TourNewRoute = Ember.Route.extend({
+EmberApp.TourNewRoute = EmberApp.AuthenticatedRoute.extend({
 
     model: function () {
         return this.get("store").createRecord('tour');

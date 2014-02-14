@@ -1,18 +1,32 @@
 module.exports = function(grunt) {
 
-    // 1. All configuration goes here 
+    // 1. All configuration goes here
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         // Task jshint
         jshint: {
             files: ['Gruntfile.js', 'js/**/*.js', 'js/app.js'],
             options: {
+                undef: true,
+                unused: true,
                 ignores: ['js/libs/*.js', 'js/build/*.js'],
                 globals: {
+                    browser: true,
+                    $: true,
                     jQuery: true,
                     console: true,
-                    module: true
-                }
+                    alert: true,
+                    localStorage: true,
+                    module: true,
+                    Ember: true,
+                    EmberApp: true,
+                    moment: true,
+                    require: true,
+                    DS: true
+                },
+                debug: true,
+                funcscope: true,
+                sub: true
             }
         },
         // Task concat
@@ -25,6 +39,7 @@ module.exports = function(grunt) {
                     'js/libs/bootstrap.min.js"',
                     'js/libs/bootstrap-datepicker.js"',
                     'js/libs/moment.min.js"',
+                    'js/libs/sha3',
                     'js/**/*.js',
                     'js/app.js'
                 ],
@@ -143,8 +158,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-ember-templates');
     grunt.loadNpmTasks('grunt-neuter');
     grunt.loadNpmTasks('grunt-usemin');
-    
-    
+
+
 
     // Where we tell Grunt what to do when we type "grunt" into the terminal.
     grunt.registerTask('default', ['concat', 'uglify', 'imagemin']);

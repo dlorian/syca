@@ -9,6 +9,7 @@ EmberApp.Router.map(function () {
 		this.route('new');
 	});
 
+    this.resource('login');
+
 	this.resource('statistics', { path: 'statistics' });
-  
 });
