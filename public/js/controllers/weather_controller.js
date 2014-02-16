@@ -72,7 +72,7 @@ EmberApp.WeatherController = Ember.ObjectController.extend({
 		}).ajaxStart(function() {
 			var loader = me.get('ajaxLoader');
 			loader.show();
-			$('<img src="../images/ajax-loader.gif">').appendTo(loader);
+			$('<img src="../images/ajax-loader-16.gif">').appendTo(loader);
 		}).ajaxStop(function() {
 			me.get('ajaxLoader').empty().hide();
 		});

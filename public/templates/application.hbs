@@ -1,21 +1,30 @@
 <div id="wrapper">
-
       <!-- Sidebar -->
       <div id="sidebar-wrapper">
         <ul class="sidebar-nav">
           <li class="sidebar-brand"><a href="#">SYCA</a></li>
           <li class="active">{{#linkTo 'home'}}Home{{/linkTo}}</li>
-          <li>{{#linkTo 'login'}}Anmelden{{/linkTo}}</li>
-          <li>{{#linkTo 'tours'}}Touren{{/linkTo}}</li>
-          <li>{{#linkTo 'tour.new'}}Neue Tour{{/linkTo}}</li>
-          <li>{{#linkTo 'statistics'}}Statistik{{/linkTo}}</li>
+          {{#if loggedInUser.isLoggedIn }}
+            <li>{{#linkTo 'tours'}}Touren{{/linkTo}}</li>
+            <li>{{#linkTo 'tour.new'}}Neue Tour{{/linkTo}}</li>
+            <li>{{#linkTo 'statistics'}}Statistik{{/linkTo}}</li>
+          {{/if}}
         </ul>
       </div>
+      <!-- Page header with login panel-->
+      <div id="page-header">{{render "loginPanel"}}</div>
       <!-- Page content -->
       <div id="page-content-wrapper">
         <!-- Keep all page content within the page-content inset div! -->
         <div class="page-content inset">
-           {{outlet}}
+            {{#if initialized}}
+                {{outlet}}
+            {{else}}
+                <div id="application-loader" class="well">
+                    <img src="../images/ajax-loader-24.gif">
+                    <span class="app-loader-text">Anmeldeinformationen werden geladen.</span>
+                </div>
+            {{/if}}
         </div>
       </div>
     </div>

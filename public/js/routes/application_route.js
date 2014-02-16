@@ -1,3 +1,2 @@
-EmberApp.ApplicationRoute = Ember.Route.extend({
-
+EmberApp.ApplicationRoute = EmberApp.AuthenticatedRoute.extend({
 });

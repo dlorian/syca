@@ -7,6 +7,51 @@ div.clear {
   clear: both;
 }
 
+.inset {
+  padding-top: 60px;
+}
+
+#application-loader .app-loader-text {
+  font-size: 18px;
+  margin: 0 0 0 10px;
+}
+
+#page-header {
+  width: 100%;
+  margin-left: -200px;
+  background: #000;
+  height: 40px;
+  position: fixed;
+  z-index: 900;
+}
+
+#login-panel {
+  float: right;
+}
+#login-panel button {
+  height: 40px;
+  line-height: 30px;
+  color: #999999;
+  display: block;
+}
+#login-panel button:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.2);
+  text-decoration: none;
+}
+#login-panel button:focus {
+  border: none;
+  text-decoration: none;
+  outline: none;
+}
+#login-panel span {
+  height: 44px;
+  line-height: 45px;
+  color: #999999;
+  display: block;
+  margin: 0 10px 0 0;
+}
+
 .syca-list-group a:first-of-type {
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;

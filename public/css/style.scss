@@ -4,7 +4,61 @@ html, body {
 	height:100%;
 }
 
-div.clear { clear: both; }
+div.clear {
+	clear: both;
+}
+
+.inset {
+	padding-top: 60px;
+}
+
+#application-loader {
+
+	.app-loader-text {
+		font-size: 18px;
+		margin: 0 0 0 10px;
+	}
+}
+
+#page-header {
+	width: 100%;
+	margin-left: -200px;
+	background: #000;
+	height: 40px;
+	position: fixed;
+	z-index: 900;
+}
+
+#login-panel {
+	float: right;
+
+	button {
+		height: 40px;
+		line-height: 30px;
+		color: #999999;
+		display: block;
+	}
+
+	button:hover {
+		color: #fff;
+		background: rgba(255,255,255,0.2);
+		text-decoration: none;
+	}
+
+	button:focus {
+		border: none;
+		text-decoration: none;
+		outline: none;
+	}
+
+	span {
+		height: 44px;
+		line-height: 45px;
+		color: #999999;
+		display: block;
+		margin: 0 10px 0 0;
+	}
+}
 
 .syca-list-group {
 	// Benötigt damit die Ekcen der Liste abgerundet sind
@@ -94,22 +148,22 @@ div.clear { clear: both; }
 
 		button {
 			background: transparent;
-			position: absolute;	
+			position: absolute;
 			border: none;
 			height: 20px;
 			top: 5px;
-					
+
 		}
 
 		#settingsBtn {
-			right: 5px;	
+			right: 5px;
 		}
 
 		#refreshBtn {
 			right: 30px;
 		}
 
-		
+
 	}
 
 	.weatherIconContainer {
@@ -128,12 +182,12 @@ div.clear { clear: both; }
 
 			li:first-child {
 				font-weight: bold;
-			}			
+			}
 
 			span {
 				margin-left: 5px;
 			}
-		}	
+		}
 	}
 }
 
@@ -149,7 +203,7 @@ div.clear { clear: both; }
 		text-align: center;
 		padding: 15px;
 	}
-	
+
 
 	p.settingCategory, p.currentCity {
 		font-weight: bold;
@@ -158,7 +212,7 @@ div.clear { clear: both; }
 
 	.list {
 		margin: 5px;
-	}	
+	}
 
 	.group {
 		margin-bottom: 5px;

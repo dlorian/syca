@@ -1,0 +1,8 @@
+<div id="login-panel">
+    {{#if loggedInUser.isLoggedIn}}
+        <span class="pull-left">Angemeldet als {{loggedInUser.user}}</span>
+        <button type="button" class="btn btn-link pull-right" {{action logout}}>Abmelden</button>
+    {{else}}
+        <button type="button" class="btn btn-link pull-right" {{action login}}>Anmelden</button>
+    {{/if}}
+</div>
