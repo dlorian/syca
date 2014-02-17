@@ -7,6 +7,8 @@ EmberApp.LoginController = Ember.Controller.extend(Ember.Evented, {
         isLoggedIn: false
     },
 
+    isLoggingIn: false, // Holds state if the controller attempepts to login in a user
+
     errorMessage: null,
 
     /**
@@ -42,12 +44,13 @@ EmberApp.LoginController = Ember.Controller.extend(Ember.Evented, {
 
     login: function() {
         var me = this;
-        var hashedPassword = CryptoJS.SHA3(this.get('password'));
-        // Prepare login data
+        // Delete exisitng error message before login attempt
+        me.set('errorMessage', null);
+        me.set('isLoggingIn', true);
+
         var data = {
             username: this.get('username'),
-            password: hashedPassword.toString()
-
+            password: CryptoJS.SHA3(this.get('password')).toString() // hash password immediately
         }
 
         // Do the login request
@@ -55,7 +58,7 @@ EmberApp.LoginController = Ember.Controller.extend(Ember.Evented, {
             // login success
             if(response.success === true) {
                 // save logged in User state.
-                me.set('loggedInUser', { loggedIn: true, user: response.user });
+                me.set('loggedInUser', { isLoggedIn: true, user: response.user });
                 var attemptedTransition = me.get('attemptedTransition');
                 if (attemptedTransition) {
                     attemptedTransition.retry();
@@ -67,12 +70,19 @@ EmberApp.LoginController = Ember.Controller.extend(Ember.Evented, {
                 }
             }
             else {
-                me.set('errorMessage', 'Ein Unglück ist passiert');
+                var errText = 'Es ist ein Fehler bei der Anmeldung aufgetreten.';
+                if(response.msg) {
+                    errText = response.msg;
+                }
+                me.set('errorMessage', errText);
             }
-        }).fail(function(){
+        }).fail(function() {
             // login failure
             me.set('errorMessage', 'Es ist ein Fehler aufgetreten.');
-        });
+        }).always(function() {
+            // hide loader always
+            me.set('isLoggingIn', false);
+        })
     },
 
     logout: function() {

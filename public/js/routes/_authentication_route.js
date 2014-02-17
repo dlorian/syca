@@ -1,35 +1,22 @@
 EmberApp.AuthenticatedRoute = Ember.Route.extend({
 
-    // beforeModel: function(transition) {
-    //     debugger
-    //     // var me = this;
-    //     // var loginController = this.controllerFor('login');
+    beforeModel: function(transition) {
+        // transition to index or login is allowed wtihout logging in
+        if(transition.targetName === 'index' || transition.targetName === 'login') {
+            return;
+        }
 
-    //     // return loginController.checkLoggedIn().then(function(loggedInUser) {
-    //     //     if (!loggedInUser.isLoggedIn) {
-    //     //         me.redirectToLogin(transition);
-    //     //     }
-    //     // });
-    // },
+        // Verify that the user is logged in.
+        // If not, redirect to index for checking authentication state.
+        var loginController = this.controllerFor('login')
+        if(!loginController.get('loggedInUser.isLoggedIn')) {
+            this.redirectToIndex(transition);
+        }
+    },
 
-    // afterModel: function() {
-    //     debugger
-    // },
-
-    // redirectToLogin: function(transition) {
-    //     var loginController = this.controllerFor('login');
-    //     loginController.set('attemptedTransition', transition);
-    //     this.transitionTo('login');
-    // },
-
-    // actions: {
-    //     error: function(reason, transition) {
-    //         if (reason.status === 401) {
-    //             this.redirectToLogin(transition);
-    //         }
-    //         else {
-    //             alert('Something went wrong');
-    //         }
-    //     }
-    // }
+    redirectToIndex: function(transition) {
+        var loginController = this.controllerFor('login');
+        loginController.set('attemptedTransition', transition);
+        this.transitionTo('index');
+    }
 });

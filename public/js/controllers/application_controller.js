@@ -5,29 +5,45 @@ EmberApp.ApplicationController = Ember.ObjectController.extend({
         return this.get('controllers.login.loggedInUser');
     }.property('controllers.login.loggedInUser'),
 
-    initialized: false,
+    initialized: false, // Holds state if controller is initalized.
 
+    errorMessage: null,
 
     init: function() {
-        debugger
         var me = this;
-        var transition = this.get('target.router.activeTransition');
-        var loginController = this.get('controllers.login').checkLoggedIn().then(
+        var loginController = this.get('controllers.login');
+
+        // Check if the user is still logged in via session cookie
+        loginController.checkLoggedIn().then(
             function(loggedInUser) {
-                // success
+                // on success
+
+                // If the user is not logged in redirect to login page.
                 if(!loggedInUser.isLoggedIn) {
-                   me.redirectToLogin(transition);
+                    var transition = me.get('target.router.activeTransition');
+                    me.redirectToLogin(transition);
                 }
+                else {
+                    // If the user was redirected to index page, go back
+                    var attemptedTransition = loginController.get('attemptedTransition');
+                    if (attemptedTransition) {
+                        attemptedTransition.retry();
+                        loginController.set('attemptedTransition', null);
+                    }
+                }
+
+                // mark the application as initialized to show the outlet
                 me.set('initialized', true);
             },
             function() {
-                // failure
+                // on failure
+                me.set('errorMessage', 'Beim Laden der Anmeldeinformationen ist ein Fehler aufgetreten.');
             });
     },
 
     redirectToLogin: function(transition) {
-        var loginController = this.controllerFor('login');
-        loginController.set('attemptedTransition', transition);
-        this.transitionTo('login');
+        // Save the transition for redirecting after a successfull login
+        this.set('controllers.login.attemptedTransition', transition);
+        this.transitionToRoute('login');
     },
 });

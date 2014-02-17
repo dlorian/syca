@@ -29,6 +29,24 @@ div.clear {
 	z-index: 900;
 }
 
+#login-form {
+	width: 500px;
+	// center login form
+	display: block;
+  	margin-left: auto;
+  	margin-right: auto;
+
+  	#login-loader {
+  		text-align: center;
+  		padding: 11px;
+  	}
+
+	.form-horizontal {
+		padding-left: 15px;
+		padding-right: 15px;
+	}
+}
+
 #login-panel {
 	float: right;
 

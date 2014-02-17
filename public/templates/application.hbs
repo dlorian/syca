@@ -20,10 +20,14 @@
             {{#if initialized}}
                 {{outlet}}
             {{else}}
+                <!-- Show up initialization message -->
                 <div id="application-loader" class="well">
                     <img src="../images/ajax-loader-24.gif">
                     <span class="app-loader-text">Anmeldeinformationen werden geladen.</span>
                 </div>
+                {{#if errorMessage}}
+                    <div class="alert alert-danger">{{errorMessage}}</div>
+                {{/if}}
             {{/if}}
         </div>
       </div>
