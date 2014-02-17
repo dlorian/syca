@@ -14,39 +14,48 @@ module.exports = function(app, passport) {
         console.log('Check if user is authenticated');
         if(req.isAuthenticated()) {
             console.log('User is authenticated: %s', req.user.username);
-            return res.send({ success: true, msg: req.user.username })
+
+            setTimeout(function(){
+                return res.send({ success: true, user: req.user.username });
+                //return res.send("401 unauthorized", 500);
+            },10000);
 
         }
-        console.log('User is NOT authenticated');
-        return res.send({ success: false, msg: 'Not logged in.' });
+        else {
+            console.log('User is NOT authenticated');
+            return res.send({ success: false, msg: 'Not logged in.' });
+        }
     });
 
     // login routes
     app.post('/api/login', function(req, res, next) {
         console.log('POST#login');
-
-        passport.authenticate('local', function(err, user, info) {
-            if (err) {
-                console.log('Error occured while log in user %s.', user.username);
-                return next(err);
-            }
-
-            if (!user) {
-                console.log('Log in of user %s NOT successfull', user.username);
-                return res.send({success: false, msg: 'Login fehlgeschlagen.'});
-            }
-
-            // log in user
-            console.log('Try to log in user %s.', user.username);
-            req.logIn(user, function(err) {
+        // setTimeout for testing prupose only to simulate traffic
+        setTimeout(function() {
+            passport.authenticate('local', function(err, user, info) {
                 if (err) {
-                    console.log('Error occured while loggin in user: %s.', user.username);
+                    console.log('Error occured while log in user %s.', user.username);
                     return next(err);
                 }
-                console.log('Login of user %s was successfull.', user.username);
-                return res.send({success: true, msg: 'Login erfolgreich.', user: user.username});
-            });
-        })(req, res, next); // add net for error handling
+
+                if (!user) {
+                    console.log('Log in of user %s NOT successfull', user.username);
+                    return res.send({success: false, msg: 'Benutzername oder Passwort ist falsch.'});
+                }
+
+                // log in user
+                console.log('Try to log in user %s.', user.username);
+                req.logIn(user, function(err) {
+                    if (err) {
+                        console.log('Error occured while loggin in user: %s.', user.username);
+                        return next(err);
+                    }
+                    console.log('Login of user %s was successfull.', user.username);
+
+                    return res.send({success: true, msg: 'Login erfolgreich.', user: user.username});
+                });
+            })(req, res, next); // add net for error handling
+        }, 10000);
     });
 
     app.post('/api/logout', function(req, res) {
