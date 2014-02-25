@@ -13,25 +13,34 @@ EmberApp.LoginController = Ember.Controller.extend(Ember.Evented, {
 
     /**
      * Check if the user is still logged via the session cookie.
+     * @param {Object} config object with success and failure callback properties.
      */
-    checkLoggedIn: function() {
-        var me = this;
-        return new Promise(function(resolve, reject) {
-            if(me.get('initialized') === false) {
-                Ember.$.get('/api/login').done(function(response) {
-                    if(response.success === true) {
-                        me.set('loggedInUser', { isLoggedIn: true, user: response.user });
-                    }
-                    me.set('initialized', true);
-                    resolve(me.get('loggedInUser'));
-                }).fail(function() {
-                    reject(new Error('Error occured'));
-                });
+    checkLoggedIn: function(config) {
+        var me      = this,
+            success = config.success,
+            failure = config.failure;
+
+        // if login controller is already intialized return curent loggedin user
+        if(me.get('initialized') === true) {
+            if (success && typeof(success) === "function") {
+                success(me.get('loggedInUser'));
             }
-            else {
-                resolve(me.get('loggedInUser'));
+            return;
+        }
+
+        var successCallback = function(response) {
+            if(response.success === true) {
+                me.set('loggedInUser', { isLoggedIn: true, user: response.user });
             }
-        });
+
+            me.set('initialized', true);
+
+            if (success && typeof(success) === "function") {
+                success(me.get('loggedInUser'));
+            }
+        }
+
+        this.getLogin(successCallback, failure);
     },
 
     reset: function() {
@@ -42,7 +51,19 @@ EmberApp.LoginController = Ember.Controller.extend(Ember.Evented, {
         });
     },
 
-    login: function() {
+    getLogin: function(success, failure) {
+        Ember.$.get('/api/login').done(function(response) {
+            if (success && typeof(success) === "function") {
+                success(response);
+            }
+        }).fail(function() {
+            if (failure && typeof(failure) === "function") {
+                failure({errMsg: 'Error while loading.'});
+            }
+        });
+    },
+
+    doLogin: function() {
         var me = this;
         // Delete exisitng error message before login attempt
         me.set('errorMessage', null);
@@ -85,7 +106,7 @@ EmberApp.LoginController = Ember.Controller.extend(Ember.Evented, {
         })
     },
 
-    logout: function() {
+    doLogout: function() {
         var me = this;
         Ember.$.post('/api/logout').done(function(response) {
             // logout success
@@ -93,17 +114,16 @@ EmberApp.LoginController = Ember.Controller.extend(Ember.Evented, {
             me.set('loggedInUser', {isLoggedIn: false, user: null });
         }).fail(function() {
             // logout failure
-
         });
     },
 
     actions: {
         login: function() {
-            this.login();
+            this.doLogin();
         },
 
         logout: function() {
-            this.logout();
+            this.doLogout();
         }
     }
 

@@ -10,14 +10,12 @@ EmberApp.ApplicationController = Ember.ObjectController.extend({
     errorMessage: null,
 
     init: function() {
-        var me = this;
-        var loginController = this.get('controllers.login');
+        var me = this,
+            loginController = this.get('controllers.login');
 
         // Check if the user is still logged in via session cookie
-        loginController.checkLoggedIn().then(
-            function(loggedInUser) {
-                // on success
-
+        loginController.checkLoggedIn({
+            success: function(loggedInUser) {
                 // If the user is not logged in redirect to login page.
                 if(!loggedInUser.isLoggedIn) {
                     var transition = me.get('target.router.activeTransition');
@@ -35,10 +33,10 @@ EmberApp.ApplicationController = Ember.ObjectController.extend({
                 // mark the application as initialized to show the outlet
                 me.set('initialized', true);
             },
-            function() {
-                // on failure
+            failure: function() {
                 me.set('errorMessage', 'Beim Laden der Anmeldeinformationen ist ein Fehler aufgetreten.');
-            });
+            }
+        });
     },
 
     redirectToLogin: function(transition) {

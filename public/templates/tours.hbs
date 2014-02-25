@@ -1,22 +1,51 @@
 <div>
 	<h1>Touren</h1>
-	<div>
-		<form class="form-inline">
-    		{{view Ember.Select  contentBinding="EmberApp.weatherCondition" id="year" class="input-small"}}
-    	   	{{view Ember.Select  contentBinding="EmberApp.weatherCondition" id="month" class="input-small"}}
-		    <button type="submit" class="btn">Sign in</button>
+	<div id="tours-list-settings" class="row">
+		<form class="navbar-form" role="search">
+			<button type="button" class="btn btn-default" {{action refresh}}>
+		  		<span class="glyphicon glyphicon-refresh"></span>
+			</button>
+			<button type="button" class="btn btn-default" {{action clear}}>
+		  		<span class="glyphicon glyphicon-remove"></span>
+			</button>
+			<div class="form-group">
+				{{view EmberApp.DateField date=dateFrom helpTextEnabled=false placeholder="Touren von..."}}
+			</div>
+			<div class="form-group">
+				{{view EmberApp.DateField date=dateTo helpTextEnabled=false placeholder="Touren bis..."}}
+			</div>
+			<div class="form-group">
+    			{{input type="text" value=filterValue class="form-control" placeholder="Filtern..."}}
+		    </div>
+		    <button type="button" class="btn btn-default" {{action filter}}>
+		  		<span class="glyphicon glyphicon-search"></span>
+			</button>
 		</form>
 	</div>
-	<div style="overlfow:auto">
-		<div id="toursList" class="list-group syca-list-group">
-			{{#each tour in model }}
-				{{#linkTo 'tour.details' tour class="list-group-item"}}
-					<h4 class="list-group-item-heading"> {{tour.description}} : Name</h4>
-					<p class="list-group-item-text"> {{tour.id}} : ID</p>
-				{{/linkTo}}
-			{{else}}
-			<p>Keine Einträge vorhanden</p>
-			{{/each}}
-		</div> <!-- /.list-group -->
-	</div>
+	<div id="tours-list" class="list-group syca-list-group">
+		{{#if errorMessage}}
+	        <div class="alert alert-danger alert-dismissable">
+	            <button type="button" class="close" data-dismiss="alert"  aria-hidden="true">&times;</button>
+	            <strong>{{errorMessage}}</strong>
+	        </div>
+	    {{/if}}
+	    {{#if isLoading}}
+	        <div id="tours-loader"  class="well well-sm">
+	            <img src="../images/ajax-loader-24.gif">
+	        </div>
+    	{{/if}}
+		{{#each tour in model }}
+			{{#linkTo 'tour.details' tour class="list-group-item"}}
+				<p class="list-group-item-text"> {{tour.date}} {{tour.totalKm}}</p>
+				<p class="list-group-item-text"> {{tour.time20}} {{time30}}</p>
+			{{/linkTo}}
+		{{else}}
+		<p>Keine Einträge vorhanden</p>
+		{{/each}}
+		{{#if tour}}
+			<div>
+				<button type="button" class="btn btn-link" {{action fetch}}>Weitere Touren laden...</button>
+			</div>
+		{{/if}}
+	</div> <!-- /.list-group -->
 </div>

@@ -60,7 +60,7 @@ EmberApp.DateField = Ember.View.extend({
             this.set('rawDate', date);
 
             // Do not set an undefined date to the datepicker
-            this.$datepicker.datepicker('setValue', rawDate);
+            this.$datepicker.datepicker('setValue', date);
         }
     },
 

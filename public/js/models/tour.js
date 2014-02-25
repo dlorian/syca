@@ -2,7 +2,7 @@ EmberApp.Tour = DS.Model.extend({
 	// General
 	date: DS.attr('date', {
 		defaultValue: function() {
-			return moment().format("DD.MM.YYYY");
+			return new Date();
 		}
 	}),
 	description: DS.attr('string'),
