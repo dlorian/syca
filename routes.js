@@ -18,7 +18,7 @@ module.exports = function(app, passport) {
             setTimeout(function(){
                 return res.send({ success: true, user: req.user.username });
                 //return res.send("401 unauthorized", 500);
-            },10000);
+            },1);
 
         }
         else {
@@ -30,7 +30,7 @@ module.exports = function(app, passport) {
     // login routes
     app.post('/api/login', function(req, res, next) {
         console.log('POST#login');
-        // setTimeout for testing prupose only to simulate traffic
+        // setTimeout for testing prupose to simulate traffic
         setTimeout(function() {
             passport.authenticate('local', function(err, user, info) {
                 if (err) {
@@ -55,7 +55,7 @@ module.exports = function(app, passport) {
                     return res.send({success: true, msg: 'Login erfolgreich.', user: user.username});
                 });
             })(req, res, next); // add net for error handling
-        }, 10000);
+        }, 1);
     });
 
     app.post('/api/logout', function(req, res) {
