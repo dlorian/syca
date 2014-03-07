@@ -3,7 +3,7 @@ EmberApp.Store = DS.Store.extend({
 });
 
 DS.RESTAdapter.reopen({
-    namespace: 'api' // Defines the path for backend services 
+    namespace: 'api' // Defines the path for backend services
 });
 
 /**
@@ -29,12 +29,3 @@ EmberApp.TimeTransform = DS.Transform.extend({
     return deserialized;
   }
 });
-
-
-/* Not yet implemented!
-DS.RESTAdapter.map('EmberApp.Tour',{
-    track:{
-        embedded:'always'
-    }
-})
-*/

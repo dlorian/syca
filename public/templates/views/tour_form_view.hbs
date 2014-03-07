@@ -6,7 +6,7 @@
             <div class="col-xs-12">
                 <div class="form-group">
                     <label for="date">Datum</label>
-                    {{view EmberApp.DateField date=date name="date"}}
+                    {{view EmberApp.DateField date=date name="date" disabled=isDisabled}}
                 </div>
             </div>
         </div>
@@ -14,29 +14,29 @@
             <div class="col-xs-6">
                 <div class="form-group">
                      <label for="totalKm">Strecke gesamt [km]:</label>
-                    {{view Ember.TextField value=totalKm name="totalKm" class="validate form-control"}}
+                    {{view Ember.TextField value=totalKm name="totalKm" class="validate form-control" disabled=isDisabled}}
                 </div>
                 <div class="form-group">
                     <label for="avgSpeed"> Avg. Geschwindigket</label>
-                    {{view Ember.TextField value=avgSpeed name="avgSpeed" class="validate form-control"}}
+                    {{view Ember.TextField value=avgSpeed name="avgSpeed" class="validate form-control" disabled=isDisabled}}
                 </div>
                 <div class="form-group">
                     <label for="topSpeed"> Top. Geschwindigket</label>
-                    {{view Ember.TextField value=topSpeed name="topSpeed" class="validate form-control"}}
+                    {{view Ember.TextField value=topSpeed name="topSpeed" class="validate form-control" disabled=isDisabled}}
                 </div>
             </div><!-- /.col-xs-6 -->
             <div class="col-xs-6">
                 <div class="form-group">
                     <label for="totalTime">Zeit gesamt:</label>
-                    {{view Ember.TextField value=totalTime name="totalTime" class="validate form-control"}}
+                    {{view Ember.TextField value=totalTime name="totalTime" class="validate form-control" disabled=isDisabled}}
                 </div>
                 <div class="form-group">
                     <label for="time20">Zeit bei 20km:</label>
-                    {{view Ember.TextField value=time20 name="time20" class="validate form-control"}}
+                    {{view Ember.TextField value=time20 name="time20" class="validate form-control" disabled=isDisabled}}
                 </div>
                 <div class="form-group">
                     <label for="time30">Zeit bei 30km:</label>
-                    {{view Ember.TextField value=time30 name="time30" class="validate form-control"}}
+                    {{view Ember.TextField value=time30 name="time30" class="validate form-control" disabled=isDisabled}}
                 </div>
             </div><!-- /.col-xs-6 -->
         </div><!-- /.row -->
@@ -44,29 +44,29 @@
             <div class="col-xs-6">
                 <div class="form-group">
                     <label for="condition">Bedingungen:</label>
-                    {{view Ember.Select content=EmberApp.weatherCondition name="condition" class="validate form-control"}}
+                    {{view Ember.Select content=EmberApp.weatherCondition name="condition" class="validate form-control" disabled=isDisabled}}
                 </div>
                 <div class="form-group">
                     <label for="temperature">Temperatur:</label>
-                    {{view Ember.TextField value=temperature  name="temperature" class="validate form-control"}}
+                    {{view Ember.TextField value=temperature  name="temperature" class="validate form-control" disabled=isDisabled}}
                 </div>
                 <div class="form-group">
                     <label for="windDirection">Windrichtung:</label>
-                    {{view Ember.Select content=EmberApp.windDirection name="windDirection" class="validate form-control"}}
+                    {{view Ember.Select content=EmberApp.windDirection name="windDirection" class="validate form-control" disabled=isDisabled}}
                 </div>
             </div><!-- /.col-xs-6 -->
             <div class="col-xs-6">
                 <div class="form-group">
                     <label for="windSpeed">Windgeschwindigkeit:</label>
-                    {{view Ember.TextField value=windSpeed name="windSpeed" class="validate form-control"}}
+                    {{view Ember.TextField value=windSpeed name="windSpeed" class="validate form-control" disabled=isDisabled}}
                 </div>
                 <div class="form-group">
                     <label for="windStrength">Windstärke:</label>
-                    {{view Ember.TextField value=windStrength name="windStrength" class="validate form-control"}}
+                    {{view Ember.TextField value=windStrength name="windStrength" class="validate form-control" disabled=isDisabled}}
                 </div>
                 <div class="form-group">
                     <label for="windBlasts">Böen:</label>
-                    {{view Ember.TextField value=windBlasts name="windBlasts" class="validate form-control" }}
+                    {{view Ember.TextField value=windBlasts name="windBlasts" class="validate form-control" disabled=isDisabled}}
                 </div>
             </div><!-- /.col-xs-6 -->
         </div><!-- /.row -->
@@ -77,10 +77,15 @@
             <div class="col-xs-12 col-md-12">
                 <div class="form-group">
                     <label for="description">Beschreibung der Strecke</label>
-                    {{view Ember.TextArea valueBinding="description" name="description" class="validate form-control" placeholder="Wegpunkte..."}}
+                    {{view Ember.TextArea valueBinding="description" name="description" class="validate form-control" placeholder="Wegpunkte..." disabled=isDisabled}}
                 </div>
             </div><!-- /.col-md-8-->
         </div><!-- /.row -->
-        <div><button id="saveTourBtn" type="submit" class="btn btn-default">Tour speichern</button></div>
+        {{!-- <div><button id="saveTourBtn" type="submit" class="btn btn-default">Tour speichern</button></div> --}}
+        <div>
+            <button class="btn btn-default" {{action 'setEditable'}} {{bindAttr hidden="isNotDisabled"}}>Ändern</button>
+            <button class="btn btn-default" {{action 'setEditable'}} {{bindAttr hidden="isDisabled"}}>Abbrechen</button>
+            <button class="btn btn-default" type="submit" {{bindAttr hidden="isDisabled"}} {{bindAttr disabled="isNotDirty"}}>Speichern</button>
+        </div>
     </form>
 </div>

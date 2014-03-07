@@ -33,19 +33,23 @@
 	        <div id="tours-loader"  class="well well-sm">
 	            <img src="../images/ajax-loader-24.gif">
 	        </div>
-    	{{/if}}
-		{{#each tour in model }}
-			{{#linkTo 'tour.details' tour class="list-group-item"}}
-				<p class="list-group-item-text"> {{tour.date}} {{tour.totalKm}}</p>
-				<p class="list-group-item-text"> {{tour.time20}} {{time30}}</p>
-			{{/linkTo}}
-		{{else}}
-		<p>Keine Einträge vorhanden</p>
-		{{/each}}
-		{{#if tour}}
-			<div>
-				<button type="button" class="btn btn-link" {{action fetch}}>Weitere Touren laden...</button>
-			</div>
+    	{{else}}
+			{{#each tour in model }}
+				{{#linkTo 'tour.details' tour class="list-group-item"}}
+					<h4 class="list-group-item-heading">Datum: {{dateFormat tour.date}} </h4>
+        			<p class="list-group-item-text">
+            			<span class="text">Gefahren: {{tour.totalKm}} km</span>
+            			<span class="text">Durchschnitt: {{tour.avgSpeed}} km/h</span>
+        			</p>
+				{{/linkTo}}
+			{{else}}
+				<p>Keine Einträge vorhanden</p>
+			{{/each}}
+			{{#if tour}}
+				<div>
+					<button type="button" class="btn btn-link" {{action fetch}}>Weitere Touren laden...</button>
+				</div>
+			{{/if}}
 		{{/if}}
 	</div> <!-- /.list-group -->
 </div>

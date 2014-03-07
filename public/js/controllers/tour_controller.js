@@ -1,12 +1,3 @@
-
-EmberApp.TourController = Ember.ObjectController.extend(Ember.Evented, {
-	// do nothing
-});
-
-EmberApp.TourFormController = Ember.ObjectController.extend(Ember.Evented, {
-	// do nothing
-});
-
 EmberApp.TourDetailsController = Ember.ObjectController.extend(Ember.Evented, {
 	// Property to set the state of the input fields
 	isDisabled: true,
@@ -18,10 +9,6 @@ EmberApp.TourDetailsController = Ember.ObjectController.extend(Ember.Evented, {
 	isNotDirty: function() {
 		return !this.get('model.isDirty');
 	}.property('model.isDirty'),
-
-	setDisabled: function(disabled) {
-		this.set('isDisabled', disabled);
-	},
 
 	save: function() {
 		var controller = this;
@@ -41,7 +28,7 @@ EmberApp.TourDetailsController = Ember.ObjectController.extend(Ember.Evented, {
 
 	actions: {
 		setEditable: function() {
-			this.setDisabled(false);
+			this.toggleProperty('isDisabled');
 		},
 
 		save: this.save

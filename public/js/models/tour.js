@@ -94,7 +94,7 @@ EmberApp.Tour = DS.Model.extend({
 			max: 2
 		},
 		temperature: {
-			type: 'string',
+			type: 'number',
 			presence: true,
 			pattern: '^(-)?[0-9]{1,2}((\\.|\\,)[0-9]{1,2})?$'
 		},

@@ -8,7 +8,7 @@ EmberApp.AuthenticatedRoute = Ember.Route.extend({
 
         // Verify that the user is logged in.
         // If not, redirect to index for checking authentication state.
-        var loginController = this.controllerFor('login')
+        var loginController = this.controllerFor('login');
         if(!loginController.get('loggedInUser.isLoggedIn')) {
             this.redirectToIndex(transition);
         }

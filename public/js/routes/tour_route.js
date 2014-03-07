@@ -1,6 +1,3 @@
-EmberApp.TourRoute = EmberApp.AuthenticatedRoute.extend({
-	// currently do nothing
-});
 
 EmberApp.TourDetailsRoute = EmberApp.AuthenticatedRoute.extend({
 

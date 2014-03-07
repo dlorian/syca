@@ -7,16 +7,26 @@ EmberApp.ToursController = Ember.ArrayController.extend({
 
     errorMessage: null,
 
+    init: function() {
+        this._super();
+
+        var queryParams = {
+            limit: this.limit,
+            offset: this.offset
+        };
+        this.doLoad(queryParams);
+    },
+
     doLoad: function(queryParams) {
         var me = this;
         me.toggleProperty('isLoading');
-        var promise = this.get('store').find(EmberApp.Tour, queryParams);
+        var promise = this.get('store').find('tour', queryParams);
 
-        promise.then(function(tours){
+        promise.then(function(tours) {
             // success
             me.set('content', tours);
             me.toggleProperty('isLoading');
-        }, function(){
+        }, function() {
             // failure
             me.set('errorMessage', 'Beim Laden der Touren ist ein Fehler aufgetreten.');
             me.toggleProperty('isLoading');

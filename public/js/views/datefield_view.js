@@ -25,7 +25,7 @@ EmberApp.DateField = Ember.View.extend({
     errorClass: 'has-error',
 
     // Date format used for valdiaton of value input
-    validDateString: 'DD.MM.YYYY',
+    validDateString: EmberApp.dateFormat || 'DD.MM.YYYY',
 
     /**
      * When the view was inserted in the DOM, initialization of the datepicker can be done
