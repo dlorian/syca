@@ -11,14 +11,14 @@ var tourSchema = new mongoose.Schema({
         default: mongoose.Types.ObjectId
     },
     description: String,
-    date: Date,
+    date: { type: Date, required: false },
     // Weather
     condition:     String,
     windDirection: String,
     temperature:  { type: String, match: numberMatch },
-    windSpeed:    { type: Number, min: 1, max: 2},
-    windStrength: { type: Number, min: 1, max: 2},
-    windBlasts:   { type: Number, min: 1, max: 2},
+    windSpeed:    { type: Number, min: 1},
+    windStrength: { type: Number, min: 1},
+    windBlasts:   { type: Number, min: 1},
     // Track
     totalKm:  { type: String, match: numberMatch },
     topSpeed: { type: String, match: numberMatch },

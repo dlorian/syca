@@ -16,10 +16,22 @@ var configDB       = require('./config/database.js');
 // Require user model for setting up test user.
 var User = require('./models/user');
 
+// Create an express instance
+var app = express();
+var env = process.env.NODE_ENV || 'development';
+
 var getDbConnection = function() {
 
-	mongoose.connect(configDB.url);
+	// Init database connection
+	if('production' === env) {
+		mongoose.connect(configDB.prod.url);
+	}
+	else {
+		// use development database collectio by defaault
+		mongoose.connect(configDB.dev.url);
+	}
 
+	// Set up the db connection
 	var db = mongoose.connection;
 
 	db.on('error', console.error.bind(console, 'connection error:'));
@@ -31,11 +43,8 @@ var getDbConnection = function() {
 };
 
 var runExpressServer = function() {
-	// create an express instance
-	var app = express();
-	var env = process.env.NODE_ENV || 'development';
 
-	// set up express application
+	// Set up express application
 	app.set('port', process.env.PORT || 8080);
 	app.use(morgan('dev'));		// 'default', 'short', 'tiny', 'dev'
 	app.use(bodyParser());

@@ -1,13 +1,31 @@
 
 var User    = require('./models/user');
-var tours   = require('./lib/tour');
+var tour    = require('./lib/tour');
 var home    = require('./lib/home');
 var weather = require('./lib/weather');
+
+/**
+ * Helper function for sending an error message.
+ */
+var sendError = function(response, error) {
+    if(!error) {
+        // If no further message is given use a default message
+        error = 'Internal server error';
+    }
+
+    console.log('# ---- Error ---- #');
+    console.log(error);
+    console.log('# --------------- #');
+
+    // Send Error message to the client
+    response.statusCode = 500;
+    response.send({ error: error });
+};
 
 module.exports = function(app, passport) {
 
     // Set up Login route
-    app.route('/api/login')
+    app.route('/login')
 
         .get(function(req, res, next) {     // Get the logged in user
             console.log('GET#login');
@@ -17,7 +35,7 @@ module.exports = function(app, passport) {
                 console.log('User is authenticated: %s', req.user.username);
 
                 setTimeout(function(){
-                    return res.send({ success: true, user: req.user.username });
+                    return res.json({ success: true, user: req.user.username });
                     //return res.send("401 unauthorized", 500);
                 }, 1);
             }
@@ -39,7 +57,7 @@ module.exports = function(app, passport) {
 
                     if (!user) {
                         console.log('Log in of user %s NOT successfull', user.username);
-                        return res.send({success: false, msg: 'Benutzername oder Passwort ist falsch.'});
+                        return res.send({ success: false, msg: 'Benutzername oder Passwort ist falsch.' });
                     }
 
                     // log in user
@@ -50,7 +68,7 @@ module.exports = function(app, passport) {
                             return next(err);
                         }
                         console.log('Login of user %s was successfull.', user.username);
-                        return res.send({success: true, msg: 'Login erfolgreich.', user: user.username});
+                        return res.send({ success: true, msg: 'Login erfolgreich.', user: user.username });
                     });
                 })(req, res, next); // add net for error handling
             }, 1);
@@ -58,20 +76,77 @@ module.exports = function(app, passport) {
     ;
 
     // Set up logout route
-    app.route('/api/logout')
+    app.route('/logout')
         .post(function(req, res) {
             req.logout();
-            res.send({success: true, msg: 'Logout erfolgreich.'});
+            res.send({ success: true, msg: 'Logout erfolgreich.' });
         })
     ;
 
+    app.all('/api/*', isLoggedIn);
+
     // Set up tours routes
     app
-        .get('/api/tours', isLoggedIn, tours.find)
-        .get('/api/tours:id', isLoggedIn, tours.findById)
-        .post('/api/tours', isLoggedIn, tours.add)
-        .put('/api/tours:id', isLoggedIn, tours.update)
-        //.delete('/api/tours/:id', tours.delete); not yet implemented
+        .get('/api/tours', function(request, response) {
+            var queryParams = request.query;
+
+            tour.find(queryParams, function(err, tours) {
+                if(err) {
+                    sendError(response, err);
+                    return;
+                }
+
+                setTimeout(function() { // For testing purpose only
+                    response.json({ tours: tours });
+                }, 3000);
+            });
+        })
+        .get('/api/tours:id', function(request, response) {
+
+            tour.findById(request.params.id, function(err, tour){
+                if (err) {
+                    sendError(response, err);
+                    return;
+                }
+                response.json({ tour: tour });
+            });
+        })
+        .post('/api/tours', function(request, response) {
+
+            tour.add(request.body.tour, function(err, tour) {
+                if(err) {
+                    sendError(response, err);
+                    return;
+                }
+
+                response.json({ tour: tour });
+            });
+        })
+        .put('/api/tours:id', function(request, response) {
+            var tourId      =  request.params.id,
+                updatedTour = request.body.tour
+            ;
+
+            tour.update(tourId, updatedTour, function(err, tour) {
+                if(err) {
+                    sendError(response, err);
+                    return;
+                }
+
+                response.json({ tour: tour });
+            });
+        })
+        .delete('/api/tours/:id', function(request, response) {
+
+            tour.delete(request.params.id, function(err) {
+                if(err) {
+                    sendError(response, err);
+                    return;
+                }
+
+                response.json({ success: true });
+            });
+        })
     ;
 
     //app.get('/homes', home.find);
@@ -84,13 +159,13 @@ module.exports = function(app, passport) {
 };
 
 //Middleware to verify that a user is logged in
-function isLoggedIn(req, res, next) {
+function isLoggedIn(request, response, next) {
 
     // if user is authenticated in the session, carry on
-    if (req.isAuthenticated()) {
+    if (request.isAuthenticated()) {
         return next();
     }
 
     // if they aren't send http error message
-    return res.send("401 unauthorized", 401);
+    return response.send("401 unauthorized", 401);
 }

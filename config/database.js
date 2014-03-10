@@ -1,4 +1,27 @@
-// Configuratio of the database
+/**
+ * Database configuration used for the different environments
+ */
+
+// URL of used database
+var database = 'mongodb://localhost/';
+
 module.exports = {
-    url: 'mongodb://localhost/nody'
-}
+    prod: {
+        // Collection for production mode
+        url: (function(me) {
+            return database + 'syca-production';
+        })()
+    },
+    dev: {
+        // Collection for development mode
+        url: (function() {
+            return database + 'syca-dev';
+        })()
+    },
+    test: {
+        // Collection for test mode
+        url: (function() {
+            return database + 'syca-test';
+        })()
+    }
+};
