@@ -11,7 +11,7 @@ var tourSchema = new mongoose.Schema({
         default: mongoose.Types.ObjectId
     },
     description: String,
-    date: { type: Date, required: false },
+    date: { type: Date, required: true },
     // Weather
     condition:     String,
     windDirection: String,
