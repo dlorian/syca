@@ -55,7 +55,7 @@ EmberApp.Tour = DS.Model.extend({
 			type: 'string',
 			presence: true,
 			pattern: {
-				regexp: '^([0-9]{2}\\:)?[0-9]{2}\\:[0-9]{2}$',
+				regexp: '^([0-9]{1,2}\\:)?[0-9]{2}\\:[0-9]{2}$',
 				text: '00:00:00'
 			}
 		},
@@ -63,7 +63,7 @@ EmberApp.Tour = DS.Model.extend({
 			type: 'string',
 			presence: true,
 			pattern: {
-				regexp: '^([0-9]{2}\\:)?[0-9]{2}\\:[0-9]{2}$',
+				regexp: '^([0-9]{1,2}\\:)?[0-9]{2}\\:[0-9]{2}$',
 				text: '00:00:00'
 			}
 		},
@@ -71,30 +71,27 @@ EmberApp.Tour = DS.Model.extend({
 			type: 'string',
 			presence: true,
 			pattern: {
-				regexp: '^([0-9]{2}\\:)?[0-9]{2}\\:[0-9]{2}$',
+				regexp: '^([0-9]{1,2}\\:)?[0-9]{2}\\:[0-9]{2}$',
 				text: '00:00:00'
 			}
 		},
 		windSpeed: {
 			type: 'number',
 			presence: true,
-			min: 1,
-			max: 2
+			min: 1
 		},
 		windStrength: {
 			type: 'number',
 			presence: true,
-			min: 1,
-			max: 2
+			min: 1
 		},
 		windBlasts: {
 			type: 'number',
 			presence: true,
-			min: 1,
-			max: 2
+			min: 1
 		},
 		temperature: {
-			type: 'number',
+			type: 'string',
 			presence: true,
 			pattern: '^(-)?[0-9]{1,2}((\\.|\\,)[0-9]{1,2})?$'
 		},

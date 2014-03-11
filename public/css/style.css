@@ -104,6 +104,10 @@ div.clear {
   height: 30px;
   color: white;
   border-radius: 5px;
+  margin: 0 0 5px 0;
+}
+#messageView div:last-of-type {
+  margin: 0;
 }
 #messageView div.messageWrapper {
   position: relative;
@@ -115,7 +119,6 @@ div.clear {
   height: 20px;
   position: absolute;
   right: 5px;
-  top: 5px;
 }
 #messageView p {
   float: left;

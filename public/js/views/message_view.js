@@ -2,46 +2,68 @@ EmberApp.MessageView = Ember.View.extend({
 	templateName: 'views/message_view',
 
 	// View-Porperties
-	visible: false, // true to show message view
-	success: false, // true to show that save was successful
-	errMsg: null,	// errMsg to show if save was not successful
+	visible: false,		// true to show message view
+	success: false,		// true to show that save was successful
+	errorMessages: [],	// errMsg to show if save was not successful
+
+	isVisible: function() {
+		var visible = this.get('visible');
+		var errorMessages = this.get('errorMessages');
+
+		//return (errorMessages.length !== 0 && visible);
+		return visible;
+	}.property('errorMessages', 'visible'),
 
 	init: function() {
 		// call super to initialize the proprties of the view
 		this._super();
 
-		var me = this;
-		var controller = this.get('controller');
+		var me = this, controller = this.get('controller');
 
-		controller.on('saveSuccessfull', function() {
-			me.showMsg(true);
+		controller.on('successMessage', function() {
+			me.showMessage(true); // true to show success message
 		});
 
-		controller.on('saveFailed', function(err) {
-			me.showMsg(true, err.error);
+		controller.on('failureMessage', function(err) {
+			me.showMessage(false, err.error); // false to show success message
 		});
 	},
 
 	willDestroyElement: function() {
 		// when the routs get changed, the deactivate hook is triggered
 		// then set the state of the controller to default state
-		this.set('visible', false);
-		this.set('success', false);
-		this.set('errMsg',  null);
+		this.setProperties({
+			visible: false,
+			success: false,
+			errMsg: []
+		});
 	},
 
-	showMsg: function(success, errMsg) {
+	showMessage: function(success, message) {
 		this.set('visible', true);
+		// if error messages have at least one error object, the success message should not be shown
+		// TODO:verify this
 		this.set('success', success);
-		if(errMsg) { this.set('errMsg', errMsg); }
+
+		if(message) {
+			var errorMessages = this.get('errorMessages');
+			errorMessages.pushObject({ message: message });
+		}
 	},
 
 	actions: {
-		hideMsg: function() {
+		hide: function(message) {
 			var me = this;
-			$('#messageView').fadeOut(400, function(){
-				me.set('visible', false);
-			});
+			debugger
+			if(message) {
+				var errorMessages = this.get('errorMessages');
+				errorMessages.removeObject(message);
+			}
+			if(errorMessages.length === 0) {
+				$('#messageView').fadeOut(200, function(){
+					me.set('visible', false);
+				});
+			}
 		},
 	}
 });

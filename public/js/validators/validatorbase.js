@@ -48,7 +48,6 @@ EmberApp.ValidatorBase = Ember.Object.extend({
      * @return Retuns an error object with error type 'ValidationError' an the given messages.
      */
     createValidationError: function(errMsg, validationMsg) {
-        debugger
         var formatRe = /\{(\d+)\}/g;
         var args = Array.prototype.slice.call(arguments, 2); // start from index 2
 

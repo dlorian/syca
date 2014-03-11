@@ -26,6 +26,7 @@ EmberApp.ToursController = Ember.ArrayController.extend({
             // success
             me.set('content', tours);
             me.toggleProperty('isLoading');
+
         }, function() {
             // failure
             me.set('errorMessage', 'Beim Laden der Touren ist ein Fehler aufgetreten.');

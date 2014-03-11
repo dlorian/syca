@@ -38,7 +38,7 @@ EmberApp.LoginController = Ember.Controller.extend(Ember.Evented, {
             if (success && typeof(success) === "function") {
                 success(me.get('loggedInUser'));
             }
-        }
+        };
 
         this.getLogin(successCallback, failure);
     },
@@ -52,7 +52,7 @@ EmberApp.LoginController = Ember.Controller.extend(Ember.Evented, {
     },
 
     getLogin: function(success, failure) {
-        Ember.$.get('/api/login').done(function(response) {
+        Ember.$.get('/login').done(function(response) {
             if (success && typeof(success) === "function") {
                 success(response);
             }
@@ -72,10 +72,10 @@ EmberApp.LoginController = Ember.Controller.extend(Ember.Evented, {
         var data = {
             username: this.get('username'),
             password: CryptoJS.SHA3(this.get('password')).toString() // hash password immediately
-        }
+        };
 
         // Do the login request
-        Ember.$.post('/api/login', data).done(function(response) {
+        Ember.$.post('/login', data).done(function(response) {
             // login success
             if(response.success === true) {
                 // save logged in User state.
@@ -103,12 +103,12 @@ EmberApp.LoginController = Ember.Controller.extend(Ember.Evented, {
         }).always(function() {
             // hide loader always
             me.set('isLoggingIn', false);
-        })
+        });
     },
 
     doLogout: function() {
         var me = this;
-        Ember.$.post('/api/logout').done(function(response) {
+        Ember.$.post('/logout').done(function(response) {
             // logout success
             me.transitionTo('login');
             me.set('loggedInUser', {isLoggedIn: false, user: null });

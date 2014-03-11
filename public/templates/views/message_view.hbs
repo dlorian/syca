@@ -1,21 +1,24 @@
 <div id="messageView" {{bind-attr class="view.visible::hidden"}}>
-    {{#if view.visible}} 
-    <div class="messageWrapper">
-        {{#if view.success}}
-        <div class="success">
-    	   <p>Eintrag wurde erfolgreich gespeichert.</p>
-    	   <button type="button" class="btn btn-default btn-xs" {{action hideMsg target="view"}}>
-    	       <span class="glyphicon glyphicon-remove"></span>
-    	    </button>
-        </div><!-- /.success -->
-        {{else}}
-        <div class="error">
-    	   <p>Eintrag konnte nicht gespeichert werden.<span class="errorMessage"> {{view.errMsg}}</span></p>
-    	   <button type="button" class="btn btn-default btn-xs" {{action hideMsg target="view"}}>
-    	   	   <span class="glyphicon glyphicon-remove"></span>
-    	   </button>
-        </div><!-- /.error -->
-        {{/if}}
-    </div><!-- /.messageWrapper -->
+    {{#if view.isVisible}}
+        <div class="messageWrapper">
+            {{#if view.success}}
+            <div class="success">
+        	   <p>Eintrag wurde erfolgreich gespeichert.</p>
+        	   <button type="button" class="btn btn-default btn-xs" {{action hide target="view"}}>
+        	       <span class="glyphicon glyphicon-remove"></span>
+        	    </button>
+            </div><!-- /.success -->
+            {{else}}
+            {{#each error in view.errorMessages}}
+                <div class="error">
+            	   <p>Eintrag konnte nicht gespeichert werden.</p>
+                   <p><span class="errorMessage"> {{error.message}}</span></p>
+            	   <button type="button" class="btn btn-default btn-xs" {{action hide error target="view"}}>
+            	   	   <span class="glyphicon glyphicon-remove"></span>
+            	   </button>
+                </div><!-- /.error -->
+            {{/each}}
+            {{/if}}
+        </div><!-- /.messageWrapper -->
     {{/if}}
 </div><!-- /#messageview -->
