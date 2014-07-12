@@ -46,7 +46,7 @@ var runExpressServer = function() {
 
 	// Set up express application
 	app.set('port', process.env.PORT || 8080);
-	app.use(morgan('dev'));		// 'default', 'short', 'tiny', 'dev'
+	app.use(morgan('dev')); // 'default', 'short', 'tiny', 'dev'
 	app.use(bodyParser());
 	app.use(methodOverride());
 
@@ -102,21 +102,16 @@ var runExpressServer = function() {
 
 	// Simple logger for requests
 	app.use(function(req, res, next) {
-		if ('development' === env) {
-			console.log('# ---- Start of Request ---- #');
-		}
-
 		console.log('%s %s', req.method, req.url);
 		next();
-
-		if('development' === env) {
-			console.log('# ----- End of Request ----- #');
-		}
 	});
 
 
     // Load the routes
 	require('./routes')(app, passport);
+
+	// Server initialised
+	console.log('Server initialised. Now ready for use.');
 
 	// launch application
 	app.listen(app.get('port'), function() {
