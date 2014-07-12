@@ -23,6 +23,7 @@ EmberApp.TourDetailsController = Ember.ObjectController.extend(Ember.Evented, {
 			controller.trigger('failureMessage', {error: resp.error});
 		};
 
+		// Try to save changes of the tour
 		this.get('model').save().then(onSuccess, onFail);
 	},
 
@@ -40,14 +41,16 @@ EmberApp.TourNewController = Ember.ObjectController.extend(Ember.Evented, {
 	save: function() {
 		var controller = this;
 
+		// Success callback for saving tour
 		var onSuccess = function() {
 			controller.trigger('successMessage');
 		};
 
+		// Failure callback for saving tour
 		var onFail = function(response) {
 			if(response.responseJSON) {
-				var error = response.responseJSON;
-				if(error.type === 'ValidationError') {
+				var error = response.responseJSON.error;
+				if(error && error.type === 'ValidationError') {
 					for(var validationError in error.errors) {
 						var failureObject = {
 							error: error.errors[validationError].message
@@ -61,6 +64,7 @@ EmberApp.TourNewController = Ember.ObjectController.extend(Ember.Evented, {
 			}
 		};
 
+		// Try to save the new tour
 		this.get('model').save().then(onSuccess, onFail);
 	},
 

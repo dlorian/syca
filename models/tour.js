@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
-var timeMatch = [ /^([0-9]{2}\:)?[0-9]{2}\:[0-9]{2}$/ , "Time does not have the correct format [hh:mm:ss]. ({VALUE})"];
-var numberMatch = [ /^[0-9]{1,3}((\.|\,)[0-9]{1,2})?$/ , "Value does not have the correct format. ({VALUE})"];
+var timeMatch   = [ /^([0-9]{2}\:)?[0-9]{2}\:[0-9]{2}$/ , "Time does not have the correct format [hh:mm:ss]. ({VALUE})"],
+    numberMatch = [ /^[0-9]{1,3}((\.|\,)[0-9]{1,2})?$/ , "Value does not have the correct format. ({VALUE})"];
 
 // Create a Schema for the model
 var tourSchema = new mongoose.Schema({
