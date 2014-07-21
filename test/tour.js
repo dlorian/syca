@@ -365,7 +365,7 @@ describe('TourService', function() {
                 Tour.count(function(err, count) {
                     if(err) done(err);
 
-                    count.should.be.equal(testTours.length);
+                    count.should.be.equal(testTours.length+1);
 
                     done();
                 });
