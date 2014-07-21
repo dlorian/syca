@@ -62,7 +62,6 @@ module.exports = function(grunt) {
                 options: {
                     colors: true,
                     ignoreLeaks: false,
-                    //quiet: true,
                     reporter: 'spec',
                     require: [
                         'coverage/blanket',
