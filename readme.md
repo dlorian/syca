@@ -1,5 +1,7 @@
 # SYCA - Save Your Cycling Activites
 
+[ ![Codeship Status for dlorian/SYCA](https://www.codeship.io/projects/b624cdc0-f2fc-0131-e5b7-4a729fc31f8d/status)](https://www.codeship.io/projects/27774)
+
 
 - Run Mongo DB with command mongod
   - to manage mongo db run command mongo in terminal
