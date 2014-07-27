@@ -36,11 +36,22 @@
     	{{else}}
 			{{#each tour in model }}
 				{{#linkTo 'tour.details' tour class="list-group-item"}}
-					<h4 class="list-group-item-heading">Datum: {{dateFormat tour.date}} </h4>
-        			<p class="list-group-item-text">
-            			<span class="text">Gefahren: {{tour.totalKm}} km</span>
-            			<span class="text">Durchschnitt: {{tour.avgSpeed}} km/h</span>
-        			</p>
+					<div class="row">
+						<div class="col-md-9">
+							<h4 class="list-group-item-heading">Datum: {{dateFormat tour.date}} </h4>
+						    <p class="list-group-item-text">
+						    	<div class="row">
+	            					<div class="col-md-4 text">Gefahren [km]: {{tour.totalKm}}</div>
+	            					<div class="col-md-4 text">Durchschnitt [km/h]: {{tour.avgSpeed}}</div>
+	            					<div class="col-md-4 text">Gesamtzeit [hh:mm:ss]: {{tour.avgSpeed}}</div>
+	            				</div>
+	        				</p>
+        				</div>
+        				<div class="col-md-3">
+        					<!-- Weather icon in list item -->
+							<p>Wetter</p>
+        				</div>
+					</div>
 				{{/linkTo}}
 			{{else}}
 				<p>Keine Einträge vorhanden</p>
