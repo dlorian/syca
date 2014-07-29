@@ -3,7 +3,7 @@
  */
 
 // URL of used database
-var database = 'mongodb://localhost/';
+var database = process.env.OPENSHIFT_MONGODB_DB_URL || 'mongodb://localhost/';
 
 module.exports = {
     prod: {

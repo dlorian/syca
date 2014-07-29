@@ -44,8 +44,11 @@ var getDbConnection = function() {
 
 var runExpressServer = function() {
 
+	var serverPort     = process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 8080;
+	var serverIpAdress = process.env.OPENSHIFT_NODEJS_IP   || '127.0.0.1';
+
 	// Set up express application
-	app.set('port', process.env.PORT || 8080);
+	app.set('port', serverPort);
 	app.use(morgan('dev')); // 'default', 'short', 'tiny', 'dev'
 	app.use(bodyParser());
 	app.use(methodOverride());
@@ -115,7 +118,7 @@ var runExpressServer = function() {
 
 	// launch application
 	app.listen(app.get('port'), function() {
-		console.log(("Express server listening on port " + app.get('port')));
+		console.log(("Express server is listening on host " + serverIpAdress + " with port " + app.get('port')));
 	});
 };
 

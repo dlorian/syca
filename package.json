@@ -5,6 +5,10 @@
   "engines": {
     "node": ">= v0.10.15"
   },
+  "scripts": {
+    "start": "node app.js"
+  },
+  "main": "app.js",
   "dependencies": {
     "express": "~4.0.0",
     "morgan": "~1.0.0",
