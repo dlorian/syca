@@ -1,12 +1,13 @@
 {
   "name": "syca",
   "version": "0.0.1",
+  "description": "Save Your Cycling Activities",
   "private": true,
   "engines": {
     "node": ">= v0.10.15"
   },
   "scripts": {
-    "start": "node app.js"
+    "start": "NODE_ENV=production node app.js"
   },
   "main": "app.js",
   "dependencies": {

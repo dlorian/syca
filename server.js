@@ -24,9 +24,13 @@ var getDbConnection = function() {
 
 	// Init database connection
 	if('production' === env) {
+		console.log('Exectuion environment: Production');
+		console.log('Used DB connection: ' + configDB.prod.url);
 		mongoose.connect(configDB.prod.url);
 	}
 	else {
+		console.log('Exectuion environment: Development');
+		console.log('Used DB connection: ' + configDB.dev.url);
 		// use development database collectio by defaault
 		mongoose.connect(configDB.dev.url);
 	}
@@ -49,6 +53,7 @@ var runExpressServer = function() {
 
 	// Set up express application
 	app.set('port', serverPort);
+	app.set('ipAddress', serverIpAdress);
 	app.use(morgan('dev')); // 'default', 'short', 'tiny', 'dev'
 	app.use(bodyParser());
 	app.use(methodOverride());
@@ -117,8 +122,8 @@ var runExpressServer = function() {
 	console.log('Server initialised. Now ready for use.');
 
 	// launch application
-	app.listen(app.get('port'), function() {
-		console.log(("Express server is listening on host " + serverIpAdress + " with port " + app.get('port')));
+	app.listen(app.get('port'), app.get('ipAddress'), function() {
+		console.log(("Express server is listening on host " + app.get('ipAddress') + " with port " + app.get('port')));
 	});
 };
 

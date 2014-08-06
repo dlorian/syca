@@ -3,25 +3,29 @@
  */
 
 // URL of used database
-var database = process.env.OPENSHIFT_MONGODB_DB_URL || 'mongodb://localhost/';
+var dbConnection = 'mongodb://localhost';
+
+if(process.env.OPENSHIFT_MONGODB_DB_URL) {
+    dbConnection = process.env.OPENSHIFT_MONGODB_DB_URL;
+}
 
 module.exports = {
     prod: {
         // Collection for production mode
         url: (function(me) {
-            return database + 'syca-production';
+            return dbConnection + 'syca';
         })()
     },
     dev: {
         // Collection for development mode
         url: (function() {
-            return database + 'syca-dev';
+            return dbConnection + 'syca'; // For testing purpose. Only syca
         })()
     },
     test: {
         // Collection for test mode
         url: (function() {
-            return database + 'syca-test';
+            return dbConnection + 'syca-test';
         })()
     }
 };
