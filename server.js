@@ -51,6 +51,8 @@ var runExpressServer = function() {
 	var serverPort     = process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 8080;
 	var serverIpAdress = process.env.OPENSHIFT_NODEJS_IP   || '127.0.0.1';
 
+	console.log('IP: ' + serverIpAdress + '    Port: ' + serverPort);
+
 	// Set up express application
 	app.set('port', serverPort);
 	app.set('ipAddress', serverIpAdress);
@@ -81,8 +83,6 @@ var runExpressServer = function() {
 		app.use(errorHandler());
 	}
 
-	// NOTE: For testing purpose only!
-	console.log('Setting up test user');
 	// Create a test user for log in. First remove the existisng user and create a new one
 	User.remove({username: 'test'}, function (err) {
 		if (err) {
@@ -95,7 +95,8 @@ var runExpressServer = function() {
 	// Helper function to register a new test user after existing user has been removed
 	function registerUser() {
 		var hashedClientPW = '1e2e9fc2002b002d75198b7503210c05a1baac4560916a3c6d93bcce3a50d7f00fd395bf1647b9abb8d1afcc9c76c289b0c9383ba386a956da4b38934417789e';
-		User.register(new User({ username : 'test'}), hashedClientPW, function(err, account) {
+
+		User.register({ username : 'test'}, hashedClientPW, function(err, account) {
 			if (err) {
 				console.log(err);
 			}
@@ -108,6 +109,7 @@ var runExpressServer = function() {
 	// Load the config for passport
 	require('./config/passport')(passport);
 
+
 	// Simple logger for requests
 	app.use(function(req, res, next) {
 		console.log('%s %s', req.method, req.url);
@@ -115,15 +117,13 @@ var runExpressServer = function() {
 	});
 
 
-    // Load the routes
-	require('./routes')(app, passport);
-
-	// Server initialised
-	console.log('Server initialised. Now ready for use.');
-
 	// launch application
-	app.listen(app.get('port'), app.get('ipAddress'), function() {
-		console.log(("Express server is listening on host " + app.get('ipAddress') + " with port " + app.get('port')));
+	app.listen(serverPort, serverIpAdress, function() {
+		console.log(("Express server is listening on host " + serverIpAdress + " with port " + serverPort));
+
+		// Load the routes
+		console.log('Set up routes');
+		require('./routes')(app, passport);
 	});
 };
 

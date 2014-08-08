@@ -96,9 +96,7 @@ module.exports = function(app, passport) {
                     return;
                 }
 
-                setTimeout(function() { // For testing purpose only
-                    response.json({ tours: tours });
-                }, 3000);
+                response.json({ tours: tours });
             });
         })
         .get('/api/tours:id', function(request, response) {
@@ -137,7 +135,6 @@ module.exports = function(app, passport) {
             });
         })
         .delete('/api/tours/:id', function(request, response) {
-
             tour.delete(request.params.id, function(err) {
                 if(err) {
                     sendError(response, err);
@@ -153,9 +150,11 @@ module.exports = function(app, passport) {
 
     // Set up weather routes
     app.route('/api/weather')
+        // TODO Error in route for find by city
+        .get('/find?:city', weather.getCityByText)
         .get(weather.getWeatherDataById)
-        .get('find?:city', weather.getCityByText)
     ;
+
 };
 
 //Middleware to verify that a user is logged in

@@ -3,7 +3,7 @@
  */
 
 // URL of used database
-var dbConnection = 'mongodb://localhost';
+var dbConnection = 'mongodb://localhost/';
 
 if(process.env.OPENSHIFT_MONGODB_DB_URL) {
     dbConnection = process.env.OPENSHIFT_MONGODB_DB_URL;
